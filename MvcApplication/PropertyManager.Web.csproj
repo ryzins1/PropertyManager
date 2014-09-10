@@ -121,9 +121,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\Complaint.cs" />
+    <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Lease.cs" />
     <Compile Include="Models\ObjectIdConverter.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Tenant.cs" />
     <Compile Include="Models\Timesheet.cs" />
+    <Compile Include="Models\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
