@@ -15,16 +15,19 @@
 			<th>Zip</th>
 		</tr>
 	</thead>
-	<tbody data-bind="foreach: viewModel.items">
+	<tbody data-bind="foreach: viewModel.buildings">
 		<tr>
-			<td data-bind="text: name"></td>
-			<td data-bind="text: address"></td>
-			<td data-bind="text: city"></td>
-			<td data-bind="text: state"></td>
-			<td data-bind="text: zip"></td>
+			<td><input type="text" data-bind="value: name"></td>
+			<td><input type="text" data-bind="value: address"></td>
+			<td><input type="text" data-bind="value: city"></td>
+			<td><input type="text" data-bind="value: state"></td>
+			<td><input type="text" data-bind="value: zip"></td>
+			<td><button class="btn" data-bind="click: $parent.remove">Delete</button></td>
 		</tr>
 	</tbody>
 </table>
+<button class="btn" data-bind="click: add">New</button>
+<button class="btn" data-bind="click: save">Save</button>
 
 <script type="text/javascript">
 
@@ -33,16 +36,84 @@ $(function () {
     viewModel.load();
 });
 
-var viewModel = {
-    items: ko.observableArray([]),
+var viewModel = function () {
 
-    load: function () {
-    	var self = this;
-    	$.getJSON('@Url.RouteUrl("buildings", new { httproute = "", controller = "buildings" })',
-			function (buildings) {
-				ko.mapping.fromJS(buildings, {}, self.items);
+	var that = {};
+
+	that.buildings = ko.observableArray([]);
+
+	that.load = function() {
+		$.getJSON('@Url.RouteUrl("buildings", new { httproute = "", controller = "buildings" })',
+			function(buildings) {
+				ko.mapping.fromJS(buildings, {}, that.buildings);
 			}
 		);
-    }
-};
+	};
+
+	that.add = function() {
+		that.buildings.push({
+			"name": ko.observable(""),
+			"address": ko.observable(""),
+			"city": ko.observable(""),
+			"state": ko.observable("MN"),
+			"zip": ko.observable(""),
+			"added": true
+		});
+	};
+
+	that.remove = function(building) {
+		$.ajax({
+			url: building.url(),
+			type: "DELETE",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (result) {
+				that.buildings.remove(building);
+			},
+			error: function (jqXhr) {
+				alert(jqXhr.responseText);
+				// TODO
+			}
+		});
+	};
+
+	that.save = function () {
+		ko.utils.arrayForEach(that.buildings(), function (building) {
+			if (building.added) {
+				$.ajax({
+					url: "/api/buildings",
+					type: "POST",
+					data: ko.toJSON(building),
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function (result) {
+						ko.mapping.fromJS(result, {}, building);
+						building.added = false;
+					},
+					error: function (jqXhr) {
+						alert(jqXhr.responseText);
+						// TODO
+					}
+				});
+
+			} else {
+				$.ajax({
+					url: building.url(),
+					type: "PUT",
+					contentType: "application/json; charset=utf-8",
+					data: ko.toJSON(building),
+					dataType: "json",
+					success: function (result) {
+					},
+					error: function (jqXhr) {
+						alert(jqXhr.responseText);
+						// TODO
+					}
+				});
+			}
+		});
+	};
+
+	return that;
+}();
 </script>

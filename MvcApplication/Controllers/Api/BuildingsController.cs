@@ -48,8 +48,7 @@ namespace MvcApplication.Controllers.Api
 			building.UnitsUrl = urlHelper.Link("units", new {buildingid = building.Id});
 
 			_repository.Insert(building);
-			var uri = Url.Route(null, new { id = building.Id });
-			return Created(uri, building);
+			return Created(building.Url, building);
 		}
 
 		[Route("{id}")]
