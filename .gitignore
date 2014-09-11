@@ -39,3 +39,4 @@ packages/
 MvcApplication/obj/
 MvcApplication/bin/
 data/
+db/
