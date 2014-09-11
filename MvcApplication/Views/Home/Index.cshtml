@@ -13,6 +13,7 @@
 			<th>City</th>
 			<th>State</th>
 			<th>Zip</th>
+			<th>Units</th>
 		</tr>
 	</thead>
 	<tbody data-bind="foreach: viewModel.buildings">
@@ -22,6 +23,7 @@
 			<td><input type="text" data-bind="value: city"></td>
 			<td><input type="text" data-bind="value: state"></td>
 			<td><input type="text" data-bind="value: zip"></td>
+			<td><a data-bind="attr: { href: '@Url.Action("Index", "Units")/' + id() }">Units</a></td>
 			<td><button class="btn" data-bind="click: $parent.remove">Delete</button></td>
 		</tr>
 	</tbody>
