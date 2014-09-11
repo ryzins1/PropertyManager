@@ -24,7 +24,7 @@
 			<td><input type="text" class="form-control input-sm" data-bind="value: city"></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: state"></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: zip"></td>
-			<td><a data-bind="attr: { href: '@Url.Action("Units", "Home")?id=' + id() }">Units</a></td>
+			<td><a data-bind="attr: { href: '@Url.Action("Units", "Home")?id=' + id() }" class="btn btn-info btn-sm">Units</a></td>
 			<td><button class="btn btn-danger btn-sm" data-bind="click: $parent.remove">Delete</button></td>
 		</tr>
 	</tbody>
