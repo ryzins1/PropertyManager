@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Routing;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -40,11 +41,13 @@ namespace MvcApplication.Controllers.Api
 		[Route]
 		public IHttpActionResult Post(string buildingid, [FromBody]Unit unit)
 		{
+			var urlHelper = new UrlHelper(Request);
+
 			unit.BuildingId = buildingid;
 			unit.Id = ObjectId.GenerateNewId().ToString();
+			unit.Url = urlHelper.Link("unit", new { buildingid, id = unit.Id });
 			_repository.Insert(unit);
-			var uri = Url.Route(null, new { buildingid, id = unit.Id });
-			return Created(uri, unit);
+			return Created(unit.Url, unit);
 		}
 
 		[Route("{id}")]
