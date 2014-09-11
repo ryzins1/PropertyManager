@@ -64,7 +64,7 @@
 	};
 
 	that.remove = function (unit) {
-		$(".alert-warning").show();
+		$(".alert-danger").show();
 		$.ajax({
 			url: unit.url(),
 			type: "DELETE",
