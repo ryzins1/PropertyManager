@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Api\BuildingsController.cs" />
     <Compile Include="Controllers\Api\TimesheetsController.cs" />
+    <Compile Include="Controllers\Api\UnitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
