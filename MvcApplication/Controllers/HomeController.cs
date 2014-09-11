@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using System.Web.Mvc;
-using MongoDB.Driver;
-using MvcApplication.Models;
+﻿using System.Web.Mvc;
 
 namespace MvcApplication.Controllers
 {
@@ -13,7 +9,13 @@ namespace MvcApplication.Controllers
             return View();
         }
 
-        public ActionResult About()
+		public ActionResult Units(string id)
+		{
+			ViewBag.Id = id;
+			return View();
+		}
+		
+		public ActionResult About()
         {
             return View();
         }
