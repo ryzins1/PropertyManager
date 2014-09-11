@@ -26,9 +26,10 @@ namespace MvcApplication.Controllers.Api
 		}
 
 		[Route("", Name = "units")]
-		public IHttpActionResult Get()
+		public IHttpActionResult Get(string buildingid)
 		{
-			return Ok(_repository.FindAll().ToList());
+			var query = Query.EQ("BuildingId", buildingid);
+			return Ok(_repository.Find(query).ToList());
 	    }
 
 		[Route("{id}", Name = "unit")]
