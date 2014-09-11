@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace MvcApplication.Models
 {
-	public class Building
+	public class Building : Entity
 	{
 		public Building()
 		{
 			Units = new Collection<Unit>();
 		}
-		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public string Address { get; set; }
 		public string City { get; set; }

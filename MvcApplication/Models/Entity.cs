@@ -1,10 +1,10 @@
-﻿using MongoDB.Bson;
-using Newtonsoft.Json;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace MvcApplication.Models
 {
     public abstract class Entity
     {
-        public ObjectId Id { get; protected set; }
+		[BsonId]
+        public string Id { get; set; }
     }
 }

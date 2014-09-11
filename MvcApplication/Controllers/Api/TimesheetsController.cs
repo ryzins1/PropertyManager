@@ -18,39 +18,36 @@ namespace MvcApplication.Controllers.Api
 
         public TimesheetsController()
         {
-            var connectionString = ConfigurationManager.AppSettings["MongoDBTimesheets"];
-            _mongoDb = MongoDatabase.Create(connectionString);
+			var connectionString = ConfigurationManager.ConnectionStrings["PropertyManager"].ConnectionString;
+			var client = new MongoClient(connectionString);
+			var server = client.GetServer();
+			var mongoDb = server.GetDatabase("PropertyManager");
 
-            _repository = _mongoDb.GetCollection<Timesheet>(typeof (Timesheet).Name);
+            _repository = mongoDb.GetCollection<Timesheet>(typeof (Timesheet).Name);
         }
 
         // GET /api/timesheets
-        public HttpResponseMessage Get()
+        public IHttpActionResult Get()
         {
             var timesheets = _repository.FindAll().ToList();
-            var response = Request.CreateResponse(HttpStatusCode.OK, timesheets);
-            string uri = Url.Route(null, null);
-            response.Headers.Location = new Uri(Request.RequestUri, uri);
-            return response;
+	        return Ok(timesheets);
         }
 
         // GET /api/timesheets/4fd63a86f65e0a0e84e510de
         [HttpGet]
-        public Timesheet Get(string id)
+        public IHttpActionResult Get(string id)
         {
             var query = Query.EQ("_id", new ObjectId(id));
-            return _repository.Find(query).Single();
+            return Ok(_repository.Find(query).Single());
         }
 
          // POST /api/timesheets
         [HttpPost]
-        public HttpResponseMessage Post(Timesheet timesheet)
+        public IHttpActionResult Post(Timesheet timesheet)
         {
             _repository.Insert(timesheet);
             string uri = Url.Route(null, new { id = timesheet.Id }); // Where is the new timesheet?
-            var response = Request.CreateResponse(HttpStatusCode.Created, timesheet);
-            response.Headers.Location = new Uri(Request.RequestUri, uri);
-            return response;
+	        return Created(uri, timesheet);
         }
 
         // PUT /api/timesheets

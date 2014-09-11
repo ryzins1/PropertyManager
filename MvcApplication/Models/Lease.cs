@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace MvcApplication.Models
 {
-	public class Lease
+	public class Lease : Entity
 	{
 		public Lease()
 		{
@@ -14,7 +14,6 @@ namespace MvcApplication.Models
 			Complaints = new Collection<Complaint>();
 			Damages = new Collection<Damage>();
 		}
-		public Guid Id { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 		public bool IsMonthToMonth { get; set; }
