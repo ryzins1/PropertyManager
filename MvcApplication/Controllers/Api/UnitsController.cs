@@ -14,7 +14,8 @@ namespace MvcApplication.Controllers.Api
 	[RoutePrefix("api/buildings/{buildingid}/units")]
     public class UnitsController : ApiController
     {
-	    private readonly MongoCollection<Unit> _repository;
+		private readonly MongoCollection<Building> _buildingRepository;
+		private readonly MongoCollection<Unit> _repository;
 
 	    public UnitsController()
 	    {
@@ -23,6 +24,7 @@ namespace MvcApplication.Controllers.Api
 		    var server = client.GetServer();
 		    var mongoDb = server.GetDatabase("PropertyManager");
 
+		    _buildingRepository = mongoDb.GetCollection<Building>(typeof (Building).Name);
 			_repository = mongoDb.GetCollection<Unit>(typeof(Unit).Name);
 		}
 
@@ -46,7 +48,7 @@ namespace MvcApplication.Controllers.Api
 		{
 			var urlHelper = new UrlHelper(Request);
 
-			unit.BuildingId = HttpUtility.UrlPathEncode(buildingid.Replace("'",""));
+			unit.BuildingId = buildingid;
 			unit.Id = ObjectId.GenerateNewId().ToString();
 			unit.Url = urlHelper.Link("unit", new { buildingid, id = unit.Id });
 			_repository.Insert(unit);
