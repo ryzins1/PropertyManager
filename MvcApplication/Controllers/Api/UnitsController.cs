@@ -10,7 +10,7 @@ using MvcApplication.Models;
 namespace MvcApplication.Controllers.Api
 {
 
-	[RoutePrefix("api/buildings/{buildingid}/units")]
+	[RoutePrefix("api/buildings/{buildingname}/units")]
     public class UnitsController : ApiController
     {
 	    private readonly MongoCollection<Unit> _repository;
@@ -26,33 +26,33 @@ namespace MvcApplication.Controllers.Api
 		}
 
 		[Route("", Name = "units")]
-		public IHttpActionResult Get(string buildingid)
+		public IHttpActionResult Get(string buildingname)
 		{
-			var query = Query.EQ("BuildingId", buildingid);
+			var query = Query.EQ("BuildingName", buildingname);
 			return Ok(_repository.Find(query).ToList());
 	    }
 
 		[Route("{id}", Name = "unit")]
-		public IHttpActionResult Get(string buildingid, string id)
+		public IHttpActionResult Get(string buildingname, string id)
 		{
 			var query = Query.EQ("_id", id);
 			return Ok(_repository.Find(query).Single());
 		}
 
 		[Route]
-		public IHttpActionResult Post(string buildingid, [FromBody]Unit unit)
+		public IHttpActionResult Post(string buildingname, [FromBody]Unit unit)
 		{
 			var urlHelper = new UrlHelper(Request);
 
-			unit.BuildingId = buildingid;
+			unit.BuildingName = buildingname;
 			unit.Id = ObjectId.GenerateNewId().ToString();
-			unit.Url = urlHelper.Link("unit", new { buildingid, id = unit.Id });
+			unit.Url = urlHelper.Link("unit", new { buildingname, id = unit.Id });
 			_repository.Insert(unit);
 			return Created(unit.Url, unit);
 		}
 
 		[Route("{id}")]
-		public IHttpActionResult Put(string buildingid, string id, [FromBody]Unit unit)
+		public IHttpActionResult Put(string buildingname, string id, [FromBody]Unit unit)
 	    {
 			_repository.Save(unit);
 		    return Ok(unit);

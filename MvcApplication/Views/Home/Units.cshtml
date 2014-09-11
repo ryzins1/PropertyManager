@@ -38,7 +38,7 @@
 		that.units = ko.observableArray([]);
 
 		that.load = function() {
-			$.getJSON('@Url.RouteUrl("units", new { httproute = "", controller = "units", buildingid = ViewBag.Id })',
+			$.getJSON('@Url.RouteUrl("units", new { httproute = "", controller = "units", buildingname = ViewBag.Id })',
 			function(units) {
 				ko.mapping.fromJS(units, {}, that.units);
 			}
@@ -73,7 +73,7 @@
 		ko.utils.arrayForEach(that.units(), function (unit) {
 			if (unit.added) {
 				$.ajax({
-					url: "@Url.RouteUrl("units", new { httproute = "", controller = "units", buildingid = ViewBag.Id })",
+					url: "@Url.RouteUrl("units", new { httproute = "", controller = "units", buildingname = ViewBag.Id })",
 					type: "POST",
 					data: ko.toJSON(unit),
 					contentType: "application/json; charset=utf-8",
