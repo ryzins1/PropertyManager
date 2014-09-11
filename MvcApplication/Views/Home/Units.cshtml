@@ -23,7 +23,17 @@
 </table>
 <button class="btn btn-primary btn-sm" data-bind="click: add">New</button>
 <button class="btn btn-success btn-sm" data-bind="click: save">Save</button>
+<div class="alert alert-dismissable alert-danger" style="display: none;" id="alert-warning">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<h4>Warning!</h4>
+	<p>Best check yo self, you sure you wanna do that?</p>
+</div>
 
+<div class="alert alert-dismissable alert-success" style="display: none;" id="alert-success">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<h4>Success</h4>
+	<p>Your changes have been saved!</p>
+</div>
 <script type="text/javascript">
 
 	$(function () {
@@ -45,15 +55,17 @@
 		);
 	};
 
-	that.add = function() {
+		that.add = function () {
 		that.units.push({
 			"number": ko.observable(""),
 			"description": ko.observable(""),
 			"added": true
 		});
+		$(".alert-success").show();
 	};
 
-	that.remove = function(unit) {
+	that.remove = function (unit) {
+		$(".alert-warning").show();
 		$.ajax({
 			url: unit.url(),
 			type: "DELETE",
