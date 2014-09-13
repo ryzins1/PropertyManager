@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using MongoDB.Bson;
 using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
 using MvcApplication.Models;
 using MvcApplication.Services;
 
@@ -21,17 +23,23 @@ namespace MvcApplication.Controllers.Api
 
 	    [Route("", Name = "units")]
 		public IHttpActionResult Get(string buildingid)
-		{
+	    {
+	        var units = _repository.Units.AsQueryable().Where(u => u.BuildingId.Equals(buildingid)).ToList();
+	        return Ok(units);
 			//_repository.RemoveAll();
-			var query = Query.EQ("BuildingId", buildingid);
-			return Ok(_repository.Units.Find(query).ToList());
+			//var query = Query.EQ("BuildingId", buildingid);
+			//return Ok(_repository.Units.Find(query).ToList());
 	    }
 
 		[Route("{id}", Name = "unit")]
 		public IHttpActionResult Get(string buildingid, string id)
 		{
-			var query = Query.EQ("_id", id);
-			return Ok(_repository.Units.Find(query).Single());
+		    var unit = _repository.Units.AsQueryable().FirstOrDefault(u => u.BuildingId.Equals(buildingid) && u.Id.Equals(id));
+		    if (unit == null)
+		        return NotFound();
+		    return Ok(unit);
+			//var query = Query.EQ("_id", id);
+			//return Ok(_repository.Units.Find(query).Single());
 		}
 
 		[Route]

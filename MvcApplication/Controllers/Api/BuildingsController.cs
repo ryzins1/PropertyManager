@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Http.Routing;
 using MongoDB.Bson;
 using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
 using MvcApplication.Models;
 using MvcApplication.Services;
 
@@ -28,8 +29,13 @@ namespace MvcApplication.Controllers.Api
 		[Route("{id}", Name = "building")]
 		public IHttpActionResult Get(string id)
 		{
-			var query = Query.EQ("_id", id);
-			return Ok(_repository.Buildings.Find(query).Single());
+		    var building = _repository.Buildings.AsQueryable().FirstOrDefault(b => b.Id.Equals(id));
+		    if (building == null)
+		        return NotFound();
+		    return Ok(building);
+
+			//var query = Query.EQ("_id", id);
+			//return Ok(_repository.Buildings.Find(query).Single());
 		}
 
 		[Route]
