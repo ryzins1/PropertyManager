@@ -23,7 +23,7 @@
 			<td><input type="text" class="form-control input-sm" data-bind="value: enddate" id="enddate"></td>
 			<td><input type="text" class="form-control input-sm" data-bine="value: ismonthtomonth"/></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: paymentdueday" id="paymentdueday"></td>
-			<td><a data-bind="attr: { href: '@Url.Action("LeaseDetail", "Home")/' + leaseid() }" class="btn btn-info btn-sm">Lease</a>
+			<td><a data-bind="attr: { href: '@Url.Action("LeaseDetails", "Home")/' + id() }" class="btn btn-info btn-sm">Lease</a>
 				@Html.Partial("_DeleteButton")
 			</td>
 		</tr>
