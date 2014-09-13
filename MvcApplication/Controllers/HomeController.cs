@@ -48,14 +48,13 @@ namespace MvcApplication.Controllers
 
 		public ActionResult Leases(string id)
 		{
-			var unit = _repository.Units.AsQueryable().FirstOrDefault(u => u.Id.Equals(id));
+			var company = _repository.Companies.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
 
-			if (unit == null)
+			if (company == null)
 				return View(); // TODO return an error page?
 
-			ViewBag.UnitId = unit.Id;
-			ViewBag.Id = unit.Id;
-			ViewBag.Name = unit.Description;
+			ViewBag.Id = id;
+			ViewBag.Name = company.Name;
 
 			return View();
 		}
