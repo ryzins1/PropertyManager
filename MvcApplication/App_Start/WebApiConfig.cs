@@ -21,12 +21,10 @@ namespace MvcApplication
 			foreach (var jsonFormatter in config.Formatters.OfType<JsonMediaTypeFormatter>())
 			{
 				jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-				//CreateMediaTypes(jsonFormatter);
 			}
 
 			// Web API routes
 			config.MapHttpAttributeRoutes();
-
         }
     }
 
@@ -34,8 +32,8 @@ namespace MvcApplication
 	{
 		public BrowserJsonFormatter()
 		{
-			this.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-			this.SerializerSettings.Formatting = Formatting.Indented;
+			SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+			SerializerSettings.Formatting = Formatting.Indented;
 		}
 
 		public override void SetDefaultContentHeaders(Type type, HttpContentHeaders headers, MediaTypeHeaderValue mediaType)
