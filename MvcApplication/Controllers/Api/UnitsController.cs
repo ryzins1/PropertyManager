@@ -23,14 +23,14 @@ namespace MvcApplication.Controllers.Api
 	    [Route("", Name = "units")]
 		public IHttpActionResult Get(string buildingid)
 	    {
-	        var units = _repository.Units.AsQueryable().Where(u => u.BuildingId.Equals(buildingid)).ToList();
+	        var units = _repository.Units.AsQueryable().Where(x => x.BuildingId.Equals(buildingid)).ToList();
 	        return Ok(units);
 	    }
 
 		[Route("{id}", Name = "unit")]
 		public IHttpActionResult Get(string buildingid, string id)
 		{
-		    var unit = _repository.Units.AsQueryable().FirstOrDefault(u => u.BuildingId.Equals(buildingid) && u.Id.Equals(id));
+		    var unit = _repository.Units.AsQueryable().FirstOrDefault(x => x.BuildingId.Equals(buildingid) && x.Id.Equals(id));
 		    if (unit == null)
 		        return NotFound();
 		    return Ok(unit);

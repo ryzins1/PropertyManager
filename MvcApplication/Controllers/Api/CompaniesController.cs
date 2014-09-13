@@ -28,7 +28,7 @@ namespace MvcApplication.Controllers.Api
 		[Route("{id}", Name = "company")]
 		public IHttpActionResult Get(string id)
 		{
-		    var company = _repository.Companies.AsQueryable().FirstOrDefault(b => b.Id.Equals(id));
+		    var company = _repository.Companies.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
 		    if (company == null)
 		        return NotFound();
 		    return Ok(company);
