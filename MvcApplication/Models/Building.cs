@@ -3,7 +3,6 @@
 	public class Building : Entity
 	{
 		public string Url { get; set; }
-		public string UnitsUrl { get; set; }
 	    public string CompanyId { get; set; }
 		public string Name { get; set; }
 		public string Address { get; set; }

@@ -14,6 +14,11 @@ namespace MvcApplication.Models
 			Complaints = new Collection<Complaint>();
 			Damages = new Collection<Damage>();
 		}
+	    public string Url { get; set; }
+	    public string CompanyId { get; set; }
+	    public string BuildingId { get; set; }
+	    public string UnitId { get; set; }
+	    public string TenantId { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 		public bool IsMonthToMonth { get; set; }

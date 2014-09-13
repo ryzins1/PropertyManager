@@ -22,7 +22,6 @@ namespace MvcApplication.Controllers.Api
 	    [Route(Name = "companies")]
 		public IHttpActionResult Get()
 		{
-			//_repository.RemoveAll();
 			return Ok(_repository.Companies.FindAll().ToList());
 	    }
 

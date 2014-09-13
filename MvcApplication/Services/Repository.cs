@@ -26,6 +26,11 @@ namespace MvcApplication.Services
             get { return _mongoDb.GetCollection<Building>(typeof(Building).Name); }
         }
 
+        public MongoCollection<Lease> Leases
+        {
+            get { return _mongoDb.GetCollection<Lease>(typeof(Lease).Name); }
+        }
+
         public MongoCollection<Unit> Units
         {
             get { return _mongoDb.GetCollection<Unit>(typeof(Unit).Name); }

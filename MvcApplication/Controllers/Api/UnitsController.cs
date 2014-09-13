@@ -25,9 +25,6 @@ namespace MvcApplication.Controllers.Api
 	    {
 	        var units = _repository.Units.AsQueryable().Where(u => u.BuildingId.Equals(buildingid)).ToList();
 	        return Ok(units);
-			//_repository.RemoveAll();
-			//var query = Query.EQ("BuildingId", buildingid);
-			//return Ok(_repository.Units.Find(query).ToList());
 	    }
 
 		[Route("{id}", Name = "unit")]
@@ -37,8 +34,6 @@ namespace MvcApplication.Controllers.Api
 		    if (unit == null)
 		        return NotFound();
 		    return Ok(unit);
-			//var query = Query.EQ("_id", id);
-			//return Ok(_repository.Units.Find(query).Single());
 		}
 
 		[Route]

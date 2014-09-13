@@ -23,7 +23,6 @@ namespace MvcApplication.Controllers.Api
 		public IHttpActionResult Get(string companyid)
 	    {
 	        var buildings = _repository.Buildings.AsQueryable().Where(x => x.CompanyId.Equals(companyid)).ToList();
-			//_repository.RemoveAll();
 			return Ok(buildings);
 	    }
 
@@ -34,8 +33,6 @@ namespace MvcApplication.Controllers.Api
 		    if (building == null)
 		        return NotFound();
 		    return Ok(building);
-			//var query = Query.EQ("_id", id);
-			//return Ok(_repository.Buildings.Find(query).Single());
 		}
 
 		[Route]
@@ -46,7 +43,6 @@ namespace MvcApplication.Controllers.Api
 			building.Id = ObjectId.GenerateNewId().ToString();
 		    building.CompanyId = companyid;
             building.Url = urlHelper.Link("building", new { id = building.Id });
-			building.UnitsUrl = urlHelper.Link("units", new {buildingid = building.Id});
 
 			_repository.Buildings.Insert(building);
 			return Created(building.Url, building);
