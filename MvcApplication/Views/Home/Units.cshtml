@@ -19,9 +19,9 @@
 			<td><input type="text" class="form-control input-sm" data-bind="value: number"></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: description"></td>
 			<td>
-			    <a class="btn btn-danger btn-sm" href="#alert-danger" data-toggle="modal">Delete</a>
+			    <a class="btn btn-danger btn-sm" data-toggle="modal" data-bind="attr: { href: '#delete-' + id() }">Delete</a>
 
-                <div class="modal" id="alert-danger">
+                <div class="modal" data-bind="attr: { id: 'delete-' + id() }">
 	                <div class="modal-dialog">
 		                <div class="modal-content">
 			                <div class="modal-header">
