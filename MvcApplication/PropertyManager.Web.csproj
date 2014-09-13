@@ -205,6 +205,12 @@
   <ItemGroup>
     <Content Include="Views\Shared\_DeleteButton.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Leases.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\LeaseDetail.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
