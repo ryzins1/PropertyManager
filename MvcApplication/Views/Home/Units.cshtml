@@ -18,28 +18,9 @@
 		<tr class ="form-group">
 			<td><input type="text" class="form-control input-sm" data-bind="value: number"></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: description"></td>
-			<td>
-			    <a class="btn btn-danger btn-sm" data-toggle="modal" data-bind="attr: { href: '#delete-' + id() }">Delete</a>
-
-                <div class="modal" data-bind="attr: { id: 'delete-' + id() }">
-	                <div class="modal-dialog">
-		                <div class="modal-content">
-			                <div class="modal-header">
-				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				                <h4 class="modal-title">Warning</h4>
-			                </div>
-			                <div class="modal-body">
-				                <p>Best check yo self, you sure you wanna do that?</p>
-			                </div>
-			                <div class="modal-footer">
-				                <input type="hidden" name="unitId" id="unitId" />
-				                <button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $parent.remove">Ok</button>
-				                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-			                </div>
-		                </div>
-	                </div>
-                </div>
-			</td> 
+		    <td>
+		        @Html.Partial("_DeleteButton")
+		    </td> 
 		</tr>
 	</tbody>
 </table>
