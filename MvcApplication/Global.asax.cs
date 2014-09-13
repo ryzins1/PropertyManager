@@ -32,6 +32,9 @@ namespace MvcApplication
 			// WebApi Configuration
 			GlobalConfiguration.Configure(WebApiConfig.Register);
 
+            // Mvc Dependency Injection
+            DependencyResolver.SetResolver(new Unity.Mvc5.UnityDependencyResolver(UnityContainer));
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

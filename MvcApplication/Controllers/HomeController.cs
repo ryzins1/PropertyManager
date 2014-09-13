@@ -1,35 +1,30 @@
-﻿using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
-using MvcApplication.Models;
+using MongoDB.Driver.Linq;
+using MvcApplication.Services;
 
 namespace MvcApplication.Controllers
 {
     public class HomeController : Controller
     {
-		private readonly MongoCollection<Building> _buildingRepository;
+		private readonly Repository _repository;
 
-	    public HomeController()
+	    public HomeController(Repository repository)
 	    {
-			var connectionString = ConfigurationManager.ConnectionStrings["PropertyManager"].ConnectionString;
-			var client = new MongoClient(connectionString);
-			var server = client.GetServer();
-			var mongoDb = server.GetDatabase("PropertyManager");
-
-			_buildingRepository = mongoDb.GetCollection<Building>(typeof(Building).Name);
+	        _repository = repository;
 	    }
 
-		public ActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
 
 		public ActionResult Units(string id)
 		{
-			var query = Query.EQ("_id", id);
-			var building = _buildingRepository.Find(query).Single();
+		    var building = _repository.Buildings.AsQueryable().FirstOrDefault(b => b.Id.Equals(id));
+
+		    if (building == null)
+		        return View(); // TODO return an error page?
 
 			ViewBag.Id = id;
 			ViewBag.BuildingName = building.Name;
