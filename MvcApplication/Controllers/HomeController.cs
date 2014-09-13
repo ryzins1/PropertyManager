@@ -55,6 +55,20 @@ namespace MvcApplication.Controllers
 
 			ViewBag.Id = id;
 			ViewBag.Name = company.Name;
+			
+			return View();
+		}
+
+		public ActionResult LeaseDetail(string id)
+		{
+			var lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
+
+			if (lease == null)
+				return View(); // TODO return an error page?
+
+			ViewBag.Id = id;
+			ViewBag.LeaseId = lease.Id;
+			//ViewBag.Name = company.Name;
 
 			return View();
 		}
