@@ -19,6 +19,7 @@
 			<td><input type="text" class="form-control input-sm" data-bind="value: name"></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: description"></td>
 			<td><a data-bind="attr: { href: '@Url.Action("Buildings", "Home")/' + id() }" class="btn btn-info btn-sm">Buildings</a></td>
+			<td><a data-bind="attr: { href: '@Url.Action("Leases", "Home")/' + id() }" class="btn btn-info btn-sm">Leases</a></td>
 		    <td>
 		        @Html.Partial("_DeleteButton")
 		    </td>
