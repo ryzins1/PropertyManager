@@ -10,7 +10,7 @@ using MvcApplication.Services;
 namespace MvcApplication.Controllers.Api
 {
 
-	[RoutePrefix("api/buildings/{buildingid}/units")]
+	[RoutePrefix("api/companies/{companyid}/buildings/{buildingid}/units")]
     public class UnitsController : ApiController
     {
 		private readonly Repository _repository;
@@ -54,7 +54,7 @@ namespace MvcApplication.Controllers.Api
 		}
 
 		[Route("{id}")]
-		public IHttpActionResult Put(string buildingid, string id, [FromBody]Unit unit)
+		public IHttpActionResult Put(string id, [FromBody]Unit unit)
 	    {
 			_repository.Units.Save(unit);
 		    return Ok(unit);

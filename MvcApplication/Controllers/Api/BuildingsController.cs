@@ -9,7 +9,7 @@ using MvcApplication.Services;
 
 namespace MvcApplication.Controllers.Api
 {
-	[RoutePrefix("api/buildings")]
+	[RoutePrefix("api/companies/{companyid}/buildings")]
 	public class BuildingsController : ApiController
 	{
 	    private readonly Repository _repository;
@@ -20,30 +20,31 @@ namespace MvcApplication.Controllers.Api
 	    }
 
 	    [Route(Name = "buildings")]
-		public IHttpActionResult Get()
-		{
+		public IHttpActionResult Get(string companyid)
+	    {
+	        var buildings = _repository.Buildings.AsQueryable().Where(x => x.CompanyId.Equals(companyid)).ToList();
 			//_repository.RemoveAll();
-			return Ok(_repository.Buildings.FindAll().ToList());
+			return Ok(buildings);
 	    }
 
 		[Route("{id}", Name = "building")]
-		public IHttpActionResult Get(string id)
+		public IHttpActionResult Get(string companyid, string id)
 		{
-		    var building = _repository.Buildings.AsQueryable().FirstOrDefault(b => b.Id.Equals(id));
+		    var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.CompanyId.Equals(companyid) && x.Id.Equals(id));
 		    if (building == null)
 		        return NotFound();
 		    return Ok(building);
-
 			//var query = Query.EQ("_id", id);
 			//return Ok(_repository.Buildings.Find(query).Single());
 		}
 
 		[Route]
-		public IHttpActionResult Post([FromBody]Building building)
+		public IHttpActionResult Post(string companyid, [FromBody]Building building)
 		{
 			var urlHelper = new UrlHelper(Request);
 
 			building.Id = ObjectId.GenerateNewId().ToString();
+		    building.CompanyId = companyid;
             building.Url = urlHelper.Link("building", new { id = building.Id });
 			building.UnitsUrl = urlHelper.Link("units", new {buildingid = building.Id});
 
@@ -60,7 +61,8 @@ namespace MvcApplication.Controllers.Api
 
 		[Route("{id}")]
 		public IHttpActionResult Delete(string id)
-	    {
+		{
+		    _repository.Units.Remove(Query.EQ("BuildingId", id));
 			_repository.Buildings.Remove(Query.EQ("_id", id));
 		    return Ok("");
 	    }

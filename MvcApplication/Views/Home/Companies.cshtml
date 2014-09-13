@@ -1,24 +1,25 @@
 ﻿@{
-    ViewBag.Title = "Units";
-	Layout = "~/Views/Shared/_master.cshtml";
+    ViewBag.Title = "Companies";
+    Layout = "~/Views/Shared/_master.cshtml";
 }
 
-<h2>Units For Building @ViewBag.Name</h2>
+<h2>Companies</h2>
 
-<button class="btn btn-primary btn-sm" style="margin-right: 10px;" data-bind="click: add">New</button>
-<button class="btn btn-success btn-sm" onclick="window.history.back()">Back</button>
-<table id="units" class="table table-striped table-hover">
+<button class="btn btn-primary btn-sm" data-bind="click: add">New</button>
+<table id="companies" class="table table-striped table-hover ">
 	<thead>
 		<tr>
-			<th>Number</th>
+			<th>Name</th>
 			<th>Description</th>
 		</tr>
 	</thead>
 	<tbody data-bind="foreach: items">
-		<tr class ="form-group">
-			<td><input type="text" class="form-control input-sm" data-bind="value: number"></td>
+
+		<tr class="form-group">
+			<td><input type="text" class="form-control input-sm" data-bind="value: name"></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: description"></td>
-			<td>
+			<td><a data-bind="attr: { href: '@Url.Action("Buildings", "Home")/' + id() }" class="btn btn-info btn-sm">Buildings</a></td>
+		    <td>
 			    <a class="btn btn-danger btn-sm" href="#alert-danger" data-toggle="modal">Delete</a>
 
                 <div class="modal" id="alert-danger">
@@ -39,15 +40,15 @@
 		                </div>
 	                </div>
                 </div>
-			</td> 
+		    </td>
 		</tr>
 	</tbody>
 </table>
 
 <script type="text/javascript">
-    
+
     $(function () {
-        var viewModel = new propertyManager.ViewModel("@Url.RouteUrl("units", new { httproute = "", companyid=ViewBag.CompanyId, buildingid = ViewBag.Id })", { "number": "New Unit" });
+        var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("companies", new { httproute = "" })', { "name": "New Company" });
         viewModel.get(function () {
             ko.applyBindings(viewModel);
         });

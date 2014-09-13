@@ -16,6 +16,11 @@ namespace MvcApplication.Services
 		    _mongoDb = server.GetDatabase("PropertyManager");
         }
 
+        public MongoCollection<Company> Companies
+        {
+            get { return _mongoDb.GetCollection<Company>(typeof(Company).Name); }
+        }
+
         public MongoCollection<Building> Buildings
         {
             get { return _mongoDb.GetCollection<Building>(typeof(Building).Name); }
