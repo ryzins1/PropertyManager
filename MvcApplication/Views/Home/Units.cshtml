@@ -5,155 +5,52 @@
 
 <h2>Units For Building @ViewBag.BuildingName</h2>
 
-<table id="units" class="table table-striped table-hover ">
+<button class="btn btn-primary btn-sm" data-bind="click: add">New</button>
+<button class="btn btn-primary btn-sm" onclick="window.history.back()">Back</button>
+<table id="units" class="table table-striped table-hover">
 	<thead>
 		<tr>
 			<th>Number</th>
 			<th>Description</th>
 		</tr>
 	</thead>
-	<tbody data-bind="foreach: viewModel.units">
-		<tr class ="form-group" data-bind="value: id">
+	<tbody data-bind="foreach: items">
+		<tr class ="form-group">
 			<td><input type="text" class="form-control input-sm" data-bind="value: number"></td>
 			<td><input type="text" class="form-control input-sm" data-bind="value: description"></td>
 			<td>
-				@*<a data-toggle="modal" data-id="value: id" href="#alert-danger" class="open-alert-danger btn btn-danger btn-sm" >Delete</a>*@
-				@*<button class="btn btn-danger btn-sm" data-bind="click: $parent.remove">Delete</button>*@
-				<a class="btn btn-danger btn-sm" href="#alert-danger" data-toggle="modal" data-unit-id="value: id">Delete</a>
+			    <a class="btn btn-danger btn-sm" href="#alert-danger" data-toggle="modal">Delete</a>
+
+                <div class="modal" id="alert-danger">
+	                <div class="modal-dialog">
+		                <div class="modal-content">
+			                <div class="modal-header">
+				                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				                <h4 class="modal-title">Warning</h4>
+			                </div>
+			                <div class="modal-body">
+				                <p>Best check yo self, you sure you wanna do that?</p>
+			                </div>
+			                <div class="modal-footer">
+				                <input type="hidden" name="unitId" id="unitId" />
+				                <button type="button" class="btn btn-primary" data-dismiss="modal" data-bind="click: $parent.remove">Ok</button>
+				                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			                </div>
+		                </div>
+	                </div>
+                </div>
 			</td> 
-			@*<td><button class="btn btn-danger btn-sm" data-bind="click: $parent.remove">Delete</button></td> click: function(){deletePerson(person);} *@
 		</tr>
 	</tbody>
 </table>
-<button class="btn btn-primary btn-sm" data-bind="click: add">New</button>
-<button class="btn btn-success btn-sm" data-bind="click: save">Save</button>
 
-<div class="alert alert-dismissable alert-danger" style="display: none;" id="alert-warning2">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-	<h4>Warning!</h4>
-	<p>Best check yo self, you sure you wanna do that?</p>
-	
-</div>
-
-<div class="modal" id="alert-danger">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title">Warning</h4>
-			</div>
-			<div class="modal-body">
-				<p>Best check yo self, you sure you wanna do that?</p>
-			</div>
-			<div class="modal-footer">
-				<input type="hidden" name="unitId" id="unitId" />
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="Save" onclick="this.remove(id)" >Save</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="alert alert-dismissable alert-success" id="alert-success">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-	<h4>Success</h4>
-	<p>Your changes have been saved!</p>
-</div>
 <script type="text/javascript">
+    
+    $(function () {
+        var viewModel = new propertyManager.ViewModel("@Url.RouteUrl("units", new { httproute = "", buildingid = ViewBag.Id })", { "number": "New Unit" });
+        viewModel.get(function () {
+            ko.applyBindings(viewModel);
+        });
+    });
 
-	$(function () {
-		ko.applyBindings(viewModel);
-		viewModel.load();
-	});
-
-	var viewModel = function () {
-
-		var that = {};
-
-		that.units = ko.observableArray([]);
-
-		that.load = function() {
-			$.getJSON('@Url.RouteUrl("units", new { httproute = "", buildingid = ViewBag.Id })',
-			function(units) {
-				ko.mapping.fromJS(units, {}, that.units);
-			}
-		);
-	};
-
-	that.add = function () {
-		that.units.push({
-			"number": ko.observable(""),
-			"description": ko.observable(""),
-			"added": true
-		});
-		$(".alert-success").show();
-	};
-
-	that.remove = function (unit) {
-		$("#alert-danger").modal({
-			resizable: false,
-			height: 250,
-			modal: true,
-			buttons: {
-				id: "Save",
-				action: function() {
-					$.ajax({
-						url: unit.url(),
-						type: "DELETE",
-						contentType: "application/json; charset=utf-8",
-						dataType: "json",
-						success: function(result) {
-							that.units.remove(unit);
-						},
-						error: function(jqXhr) {
-							alert(jqXhr.responseText);
-						}
-					});
-				},
-				"Close": function() {
-					$("alert-danger").dialog("close");
-				}
-			} // TODO
-		});
-	}
-
-	that.save = function () {
-		ko.utils.arrayForEach(that.units(), function (unit) {
-			if (unit.added) {
-				$.ajax({
-					url: '@Url.RouteUrl("units", new { httproute = "", buildingid = ViewBag.Id })',
-					type: "POST",
-					data: ko.toJSON(unit),
-					contentType: "application/json; charset=utf-8",
-					dataType: "json",
-					success: function (result) {
-						ko.mapping.fromJS(result, {}, unit);
-						unit.added = false;
-					},
-					error: function (jqXhr) {
-						alert(jqXhr.responseText);
-						// TODO
-					}
-				});
-
-			} else {
-				$.ajax({
-					url: unit.url(),
-					type: "PUT",
-					contentType: "application/json; charset=utf-8",
-					data: ko.toJSON(unit),
-					dataType: "json",
-					success: function (result) {
-					},
-					error: function (jqXhr) {
-						alert(jqXhr.responseText);
-						// TODO
-					}
-				});
-			}
-		});
-	};
-
-	return that;
-}();
 </script>
