@@ -7,81 +7,110 @@
 <br/>
 
 <form class="form-horizontal" data-bind="with: item">
-    
-    <div class="form-group">
-        <label class="control-label col-xs-2" for="startdate">Start Date</label>
-        <div class="col-xs-10">
-            <input type="text" id="startdate" name="startdate" placeholder="" class="input-sm" data-bind="datepicker: startDate">
+    <fieldset>
+        
+        <div class="form-group">
+            <label class="control-label col-xs-2" for="company">Company</label>
+            <div class="col-xs-10">
+                <input type="text" id="company" name="company" class="input-sm disabled" disabled="true" data-bind="value: $parent.companyName">
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-xs-2" for="enddate">End Date</label>
-        <div class="col-xs-10">
-            <input type="text" id="enddate" name="enddate" placeholder="" class="input-sm" data-bind="datepicker: endDate">
+        @*<div class="form-group">
+            <label class="control-label col-xs-2" for="company">Company</label>
+            <div class="col-xs-10">
+                <select id="company" class="form-control input-sm" data-bind="options: $parent.companies, value: companyId, optionsText: 'name', optionsValue: 'id'"></select>
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-xs-2" for="startdate">Start Date</label>
+            <div class="col-xs-10">
+                <input type="text" id="startdate" name="startdate" placeholder="" class="input-sm" data-bind="datepicker: startDate">
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-xs-offset-2 col-xs-10">
-            <label><input type="checkbox" name="isMonthToMonth" id="isMonthToMonth" data-bind="checked: isMonthToMonth"> Is Month To Month</label>
+        <div class="form-group">
+            <label class="control-label col-xs-2" for="enddate">End Date</label>
+            <div class="col-xs-10">
+                <input type="text" id="enddate" name="enddate" placeholder="" class="input-sm" data-bind="datepicker: endDate">
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-xs-2" for="paymentdueday">Payment Due Day</label>
-        <div class="col-xs-10">
-            <input type="number" min="1" max="31" step="1" pattern="\d+" id="paymentdueday" name="paymentdueday" class="input-sm" data-bind="value: paymentDueDay">
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <label><input type="checkbox" name="isMonthToMonth" id="isMonthToMonth" data-bind="checked: isMonthToMonth"> Is Month To Month</label>
+            </div>
         </div>
-    </div>
 
-    @*<div class="control-group">
+        <div class="form-group">
+            <label class="control-label col-xs-2" for="paymentdueday">Payment Due Day</label>
+            <div class="col-xs-10">
+                <input type="number" min="1" max="28" step="1" id="paymentdueday" name="paymentdueday" class="input-sm numeric" data-bind="value: paymentDueDay">
+            </div>
+        </div>
+
+        @*<div class="control-group">
 			<label class="control-label" for="textinput">Tenant</label>
 			<div class="controls">
 				<input id="textinput" name="textinput" type="text" placeholder="tenant" class="input-xlarge">
 			</div>
 		</div>*@
 
-    <div class="form-group">
-        <label class="control-label col-xs-2" for="monthlypayment">Monthly Payment</label>
-        <div class="col-xs-10">
-            <div class="input-prepend">
-                <span class="add-on">$</span>
-                <input type="number" id="monthlypayment" name="monthlypayment" class="input-sm" placeholder="" data-bind="value: monthlyPayment">
+        <div class="form-group">
+            <label class="control-label col-xs-2" for="monthlypayment">Monthly Payment</label>
+            <div class="col-xs-10">
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    <input type="number" id="monthlypayment" name="monthlypayment" class="input-sm numeric" placeholder="" data-bind="value: monthlyPayment">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-xs-2" for="securitydeposit">Security Deposit</label>
-        <div class="col-xs-10">
-            <div class="input-prepend">
-                <span class="add-on">$</span>
-                <input type="number" id="securitydeposit" name="securitydeposit" class="input-sm" placeholder="" data-bind="value: securityDeposit">
+        <div class="form-group">
+            <label class="control-label col-xs-2" for="securitydeposit">Security Deposit</label>
+            <div class="col-xs-10">
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    <input type="number" id="securitydeposit" name="securitydeposit" class="input-sm numeric" placeholder="" data-bind="value: securityDeposit">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-xs-2" for="petdeposit">Pet Deposit</label>
-        <div class="col-xs-10">
-            <div class="input-prepend">
-                <span class="add-on">$</span>
-                <input type="number" id="petdeposit" name="petdeposit" class="input-sm" placeholder="" data-bind="value: petDeposit">
+        <div class="form-group">
+            <label class="control-label col-xs-2" for="petdeposit">Pet Deposit</label>
+            <div class="col-xs-10">
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    <input type="number" id="petdeposit" name="petdeposit" class="input-sm numeric" placeholder="" data-bind="value: petDeposit">
+                </div>
             </div>
         </div>
-    </div>
 
+    </fieldset>
 </form>
 
 
 @section Scripts {
-	<script type="text/javascript">
-		$(function () {
-			var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("lease", new { httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id })', {});
-			viewModel.get(function () {
-				ko.applyBindings(viewModel);
-			});
-		});
-	</script>
+    <script type="text/javascript">
+        $(function() {
+            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("lease", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})', {});
+            viewModel.get(function() {
+
+                viewModel.companyName = ko.observable("");
+                viewModel.buildings = ko.observableArray([]);
+                viewModel.units = ko.observableArray([]);
+
+                $.getJSON("/api/companies/" + viewModel.item.companyId(), function(company) {
+                    viewModel.companyName(company.name);
+
+                    $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings", function (buildings) {
+	                    ko.mapping.fromJS(buildings, {}, viewModel.buildings);
+                    });
+                });
+
+                ko.applyBindings(viewModel);
+            });
+        });
+    </script>
 }

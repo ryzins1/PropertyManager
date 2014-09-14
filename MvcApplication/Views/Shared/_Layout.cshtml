@@ -65,6 +65,25 @@
         <script src="~/Scripts/knockout.bindinghandlers.js"></script>
         <script src="~/Scripts/ViewModel.js"></script>
 
+        <script>
+            $(function() {
+                // validate that entry in all numeric text boxes is a number - put the class numerictextbox on all quantity inputs
+                $(document).on("keydown", ".numeric", function(event) {
+                    // Allow backspace, delete, enter, tab, arrows
+                    if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 13 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39) {
+                        // let it happen, don't do anything 
+                    } else {
+                        // Ensure that it is a number or stop the keypress
+                        if ((event.keyCode < 48 || event.keyCode > 57) &&
+                            (event.keyCode < 96 || event.keyCode > 105) &&
+                            event.keyCode != 188 && event.keyCode != 190) {
+                            event.preventDefault();
+                        }
+                    }
+                });
+            });
+        </script>
+
         @RenderSection("scripts", required: false)
 
     </body>
