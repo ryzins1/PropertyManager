@@ -1,112 +1,115 @@
 ﻿@{
-	ViewBag.Title = "Leases";
+    ViewBag.Title = "Leases";
 }
 
 <h2>Lease Details</h2>
 
-<br/>
+<button class="btn btn-success btn-sm" onclick="window.history.back()">Back</button>
 
-<form class="form-horizontal" data-bind="with: item">
-    <fieldset>
-        
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="company">Company</label>
-            <div class="col-xs-10">
-                <input type="text" id="company" name="company" class="input-sm disabled" disabled="true" data-bind="value: $parent.companyName">
+<p/>
+
+<div>
+
+    <form data-bind="with: item">
+        <div class="row">
+            <div class="col-xs-2">
+                <label class="control-label" for="company">Company</label>
+            </div>
+            <div class="col-xs-4">
+                <input type="text" id="company" class="input-sm disabled" disabled data-bind="value: $parent.companyName">
+            </div>
+            <div class="col-xs-2">
+                <label class="control-label" for="building">Building</label>
+            </div>
+            <div class="col-xs-4">
+                <select id="building" class="form-control input-sm" data-bind="options: $parent.buildings, value: buildingId, optionsText: 'name', optionsValue: 'id'"></select>
             </div>
         </div>
-
-        @*<div class="form-group">
-            <label class="control-label col-xs-2" for="company">Company</label>
-            <div class="col-xs-10">
-                <select id="company" class="form-control input-sm" data-bind="options: $parent.companies, value: companyId, optionsText: 'name', optionsValue: 'id'"></select>
+        <br/>
+        <div class="row">
+            <div class="col-xs-2">
+                <label class="control-label" for="startdate">Start Date</label>
             </div>
-        </div>*@
-
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="startdate">Start Date</label>
-            <div class="col-xs-10">
-                <input type="text" id="startdate" name="startdate" placeholder="" class="input-sm" data-bind="datepicker: startDate">
+            <div class="col-xs-4">
+                <input type="text" id="startdate" class="input-sm" data-bind="datepicker: startDate">
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="enddate">End Date</label>
-            <div class="col-xs-10">
-                <input type="text" id="enddate" name="enddate" placeholder="" class="input-sm" data-bind="datepicker: endDate">
+            <div class="col-xs-2">
+                <label class="control-label" for="enddate">End Date</label>
+            </div>
+            <div class="col-xs-4">
+                <input type="text" id="enddate" class="input-sm" data-bind="datepicker: endDate">
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-xs-offset-2 col-xs-10">
-                <label><input type="checkbox" name="isMonthToMonth" id="isMonthToMonth" data-bind="checked: isMonthToMonth"> Is Month To Month</label>
+        <br/>
+        <div class="row">
+            <div class="col-xs-2">
+                <label class="control-label" for="ismonthtomonth">Is Month To Month</label>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="paymentdueday">Payment Due Day</label>
-            <div class="col-xs-10">
+            <div class="col-xs-4">
+                <input type="checkbox" id="ismonthtomonth" class="form-control" style="width: 40px; margin: 0" data-bind="checked: isMonthToMonth">
+            </div>
+            <div class="col-xs-2">
+                <label class="control-label" for="paymentdueday">Payment Due Day</label>
+            </div>
+            <div class="col-xs-4">
                 <input type="number" min="1" max="28" step="1" id="paymentdueday" name="paymentdueday" class="input-sm numeric" data-bind="value: paymentDueDay">
             </div>
         </div>
-
-        @*<div class="control-group">
-			<label class="control-label" for="textinput">Tenant</label>
-			<div class="controls">
-				<input id="textinput" name="textinput" type="text" placeholder="tenant" class="input-xlarge">
-			</div>
-		</div>*@
-
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="monthlypayment">Monthly Payment</label>
-            <div class="col-xs-10">
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+        <br/>
+        <div class="row">
+            <div class="col-xs-2">
+                <label class="control-label" for="monthlypayment">Monthly Payment</label>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     <input type="number" id="monthlypayment" name="monthlypayment" class="input-sm numeric" placeholder="" data-bind="value: monthlyPayment">
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="securitydeposit">Security Deposit</label>
-            <div class="col-xs-10">
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+            <div class="col-xs-2">
+                <label class="control-label" for="securitydeposit">Security Deposit</label>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     <input type="number" id="securitydeposit" name="securitydeposit" class="input-sm numeric" placeholder="" data-bind="value: securityDeposit">
                 </div>
             </div>
         </div>
+        <br/>
 
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="petdeposit">Pet Deposit</label>
-            <div class="col-xs-10">
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
-                    <input type="number" id="petdeposit" name="petdeposit" class="input-sm numeric" placeholder="" data-bind="value: petDeposit">
+        @*
+            <div class="form-group">
+                <label class="control-label col-xs-2" for="petdeposit">Pet Deposit</label>
+                <div class="col-xs-10">
+                    <div class="input-prepend">
+                        <span class="add-on">$</span>
+                        <input type="number" id="petdeposit" name="petdeposit" class="input-sm numeric" placeholder="" data-bind="value: petDeposit">
+                    </div>
                 </div>
             </div>
-        </div>
+        *@
 
-    </fieldset>
-</form>
+    </form>
+</div>
 
 
 @section Scripts {
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("lease", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})', {});
-            viewModel.get(function() {
+            viewModel.get(function () {
 
                 viewModel.companyName = ko.observable("");
                 viewModel.buildings = ko.observableArray([]);
                 viewModel.units = ko.observableArray([]);
 
-                $.getJSON("/api/companies/" + viewModel.item.companyId(), function(company) {
+                $.getJSON("/api/companies/" + viewModel.item.companyId(), function (company) {
                     viewModel.companyName(company.name);
+                });
 
-                    $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings", function (buildings) {
-	                    ko.mapping.fromJS(buildings, {}, viewModel.buildings);
-                    });
+                $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings", function (buildings) {
+                    ko.mapping.fromJS(buildings, {}, viewModel.buildings);
                 });
 
                 ko.applyBindings(viewModel);
