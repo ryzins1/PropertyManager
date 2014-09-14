@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Companies";
-    Layout = "~/Views/Shared/_master.cshtml";
 }
 
 <h2>Companies</h2>
@@ -27,13 +26,13 @@
 	</tbody>
 </table>
 
-<script type="text/javascript">
-
-    $(function () {
-        var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("companies", new { httproute = "" })', { "name": "New Company" });
-        viewModel.get(function () {
-            ko.applyBindings(viewModel);
+@section Scripts {
+    <script>
+        $(function() {
+            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("companies", new {httproute = ""})', { "name": "New Company" });
+            viewModel.get(function() {
+                ko.applyBindings(viewModel);
+            });
         });
-    });
-
-</script>
+    </script>
+}

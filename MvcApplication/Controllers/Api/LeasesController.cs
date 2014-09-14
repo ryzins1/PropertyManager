@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using MongoDB.Bson;
@@ -43,6 +44,8 @@ namespace MvcApplication.Controllers.Api
 			lease.Id = ObjectId.GenerateNewId().ToString();
 		    lease.CompanyId = companyid;
             lease.Url = urlHelper.Link("lease", new { id = lease.Id });
+            lease.StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+		    lease.EndDate = lease.StartDate.AddYears(1).AddDays(-1);
 
 			_repository.Leases.Insert(lease);
 			return Created(lease.Url, lease);
