@@ -6,12 +6,19 @@ propertyManager.ViewModel = function (apiUrl, newObjectDefaults) {
 
     that.items = ko.observableArray([]);
 
-	that.get = function(callback) {
-		$.getJSON(apiUrl, function(items) {
-		    ko.mapping.fromJS(items, {}, that.items);
-		    ko.utils.arrayForEach(that.items(), function (item) {
-			    ko.watch(item, function() { that.update(item); });
-			});
+    that.item = {};
+
+    that.get = function(callback) {
+	    $.getJSON(apiUrl, function (items) {
+	        if (items instanceof Array) {
+	            ko.mapping.fromJS(items, {}, that.items);
+	            ko.utils.arrayForEach(that.items(), function(item) {
+	                ko.watch(item, function() { that.update(item); });
+	            });
+	        } else {
+	            ko.mapping.fromJS(items, {}, that.item);
+	            ko.watch(that.item, function() { that.update(that.item); });
+	        }
             if (callback) {
                 callback();
             }

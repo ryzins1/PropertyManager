@@ -78,7 +78,7 @@ namespace MvcApplication.Controllers
 			return View();
 		}
 
-		public ActionResult LeaseDetails(string id)
+		public ActionResult LeaseDetails(string id, string companyid)
 		{
 			var lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
 
@@ -86,8 +86,7 @@ namespace MvcApplication.Controllers
 				return View(); // TODO return an error page?
 
 			ViewBag.Id = id;
-			ViewBag.LeaseId = lease.Id;
-			//ViewBag.Name = company.Name;
+		    ViewBag.CompanyId = companyid;
 
 			return View();
 		}

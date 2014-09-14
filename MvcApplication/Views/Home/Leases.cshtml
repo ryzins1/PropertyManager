@@ -23,7 +23,7 @@
             <td><input type="checkbox" class="form-control input-sm" data-bind="checked: isMonthToMonth" /></td>
             <td><input type="text" class="form-control input-sm" data-bind="value: paymentDueDay"></td>
             <td>
-                <a data-bind="attr: { href: '@Url.Action("LeaseDetails", "Home")/' + id() }" class="btn btn-info btn-sm">Details</a>
+                <a data-bind="attr: { href: '@Url.Action("LeaseDetails", "Home")/' + id() + '?companyid=' + companyId() }" class="btn btn-info btn-sm">Details</a>
                 @Html.Partial("_DeleteButton")
             </td>
         </tr>
