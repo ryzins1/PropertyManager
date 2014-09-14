@@ -134,6 +134,7 @@
     <Compile Include="Controllers\Api\BuildingsController.cs" />
     <Compile Include="Controllers\Api\CompaniesController.cs" />
     <Compile Include="Controllers\Api\LeasesController.cs" />
+    <Compile Include="Controllers\Api\TenantsController.cs" />
     <Compile Include="Controllers\Api\UnitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -248,7 +249,9 @@
   <ItemGroup>
     <Content Include="Views\Home\Units.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Home\Tenants.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Companies.cshtml" />
   </ItemGroup>

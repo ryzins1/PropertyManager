@@ -45,6 +45,11 @@
                 @:url += "&unitid=@ViewBag.UnitId";
                 @:defaults.unitId = "@ViewBag.UnitId";
             }
+            @if (!string.IsNullOrEmpty(ViewBag.TenantId))
+            {
+                @:url += "&tenantid=@ViewBag.TenantId";
+                @:defaults.tenantId = "@ViewBag.TenantId";
+            }
             var viewModel = new propertyManager.ViewModel(url, defaults);
             viewModel.get(function() {
                 ko.applyBindings(viewModel);

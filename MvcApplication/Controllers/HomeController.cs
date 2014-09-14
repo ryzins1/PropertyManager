@@ -19,6 +19,11 @@ namespace MvcApplication.Controllers
             return View();
         }
 
+        public ActionResult Tenants()
+        {
+            return View();
+        }
+
 		public ActionResult Buildings(string id)
 		{
 		    var company = _repository.Companies.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
@@ -46,7 +51,7 @@ namespace MvcApplication.Controllers
 			return View();
 		}
 
-		public ActionResult Leases(string id, string buildingid = "", string unitid = "")
+		public ActionResult Leases(string id, string buildingid = "", string unitid = "", string tenantid = "")
 		{
 		    if (!string.IsNullOrEmpty(unitid))
 		    {
@@ -63,6 +68,14 @@ namespace MvcApplication.Controllers
     				return View(); // TODO return an error page?
 			    ViewBag.Name = "Building "  + building.Name + " " + building.Address;
             }
+            else if (!string.IsNullOrEmpty(tenantid))
+            {
+			    var tenant = _repository.Tenants.AsQueryable().FirstOrDefault(x => x.Id.Equals(tenantid));
+    			if (tenant == null)
+    				return View(); // TODO return an error page?
+                buildingid = tenant.BuildingId;
+			    ViewBag.Name = "Tenant "  + tenant.FirstName + " " + tenant.LastName;
+            }
             else
             {
 			    var company = _repository.Companies.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
@@ -71,9 +84,11 @@ namespace MvcApplication.Controllers
 			    ViewBag.Name = "Company " + company.Name + " " + company.Description;
             }
 
+		    ViewBag.FromUrl = Request.UrlReferrer == null ? "/" : Request.UrlReferrer.PathAndQuery;
 			ViewBag.Id = id;
 		    ViewBag.BuildingId = buildingid;
 		    ViewBag.UnitId = unitid;
+		    ViewBag.TenantId = tenantid;
 			
 			return View();
 		}
@@ -85,7 +100,7 @@ namespace MvcApplication.Controllers
 			if (lease == null)
 				return View(); // TODO return an error page?
 
-		    ViewBag.FromUrl = Request.UrlReferrer.PathAndQuery;
+		    ViewBag.FromUrl = Request.UrlReferrer == null ? "/" : Request.UrlReferrer.PathAndQuery;
 			ViewBag.Id = id;
 		    ViewBag.CompanyId = companyid;
 

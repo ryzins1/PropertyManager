@@ -6,7 +6,7 @@
     <title>Property Manager</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    @*<link href="~/Content/bootstrap-responsive.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
     <link href="~/Content/site.css" rel="stylesheet" />
 
@@ -29,7 +29,8 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="@(page == "" ? "active" : "")"><a href="@Url.Action("Companies", "Home")">Companies</a></li>
-					<li class="@(page == "about" ? "active" : "")"><a href="@Url.Action("About", "Home")">About</a></li>
+					<li class="@(page.Equals("tenants", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"><a href="@Url.Action("Tenants", "Home")">Tenants</a></li>
+					<li class="@(page.Equals("about", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"><a href="@Url.Action("About", "Home")">About</a></li>
 				</ul>
 				@*<form class="navbar-form navbar-left">
 					<input type="text" class="form-control col-lg-8" placeholder="Search">
