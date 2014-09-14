@@ -57,6 +57,12 @@ namespace MvcApplication.Controllers.Api
             lease.StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 		    lease.EndDate = lease.StartDate.AddYears(1).AddDays(-1);
 
+		    if (string.IsNullOrEmpty(lease.BuildingId))
+		    {
+		        var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.CompanyId.Equals(companyid));
+		        lease.BuildingId = building == null ? "" : building.Id;
+		    }
+
 			_repository.Leases.Insert(lease);
 			return Created(lease.Url, lease);
 		}

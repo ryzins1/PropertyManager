@@ -9,7 +9,14 @@
         //handle the field changing
         ko.utils.registerEventHandler(element, "change", function () {
             var observable = valueAccessor();
-            observable($el.datepicker("getDate"));
+            var current = $el.datepicker("getDate");
+            if (current instanceof Date && isFinite(current)) {
+                var value = observable();
+                var dateValue = new Date(value);
+                if (dateValue - current !== 0) {
+                    observable($el.datepicker("getDate"));
+                }
+            }
         });
 
         //handle disposal (if KO removes by the template binding)

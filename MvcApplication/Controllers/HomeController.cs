@@ -85,6 +85,7 @@ namespace MvcApplication.Controllers
 			if (lease == null)
 				return View(); // TODO return an error page?
 
+		    ViewBag.FromUrl = Request.UrlReferrer.PathAndQuery;
 			ViewBag.Id = id;
 		    ViewBag.CompanyId = companyid;
 
