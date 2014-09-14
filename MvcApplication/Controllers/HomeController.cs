@@ -56,10 +56,11 @@ namespace MvcApplication.Controllers
 		    if (!string.IsNullOrEmpty(unitid))
 		    {
 			    var unit = _repository.Units.AsQueryable().FirstOrDefault(x => x.Id.Equals(unitid));
+			    var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.Id.Equals(unit.BuildingId));
     			if (unit == null)
     				return View(); // TODO return an error page?
 			    ViewBag.Name = "Unit " + unit.Number + " " + unit.Description;
-		        
+		        ViewBag.FromUrl = "/home/units/" + building.Id;
 		    }
             else if (!string.IsNullOrEmpty(buildingid))
             {
@@ -67,6 +68,7 @@ namespace MvcApplication.Controllers
     			if (building == null)
     				return View(); // TODO return an error page?
 			    ViewBag.Name = "Building "  + building.Name + " " + building.Address;
+		        ViewBag.FromUrl = "/home/buildings/" + id;
             }
             else if (!string.IsNullOrEmpty(tenantid))
             {
@@ -75,6 +77,7 @@ namespace MvcApplication.Controllers
     				return View(); // TODO return an error page?
                 buildingid = tenant.BuildingId;
 			    ViewBag.Name = "Tenant "  + tenant.FirstName + " " + tenant.LastName;
+                ViewBag.FromUrl = "/home/tenants";
             }
             else
             {
@@ -82,9 +85,9 @@ namespace MvcApplication.Controllers
     			if (company == null)
     				return View(); // TODO return an error page?
 			    ViewBag.Name = "Company " + company.Name + " " + company.Description;
+                ViewBag.FromUrl = "/";
             }
 
-		    ViewBag.FromUrl = Request.UrlReferrer == null ? "/" : Request.UrlReferrer.PathAndQuery;
 			ViewBag.Id = id;
 		    ViewBag.BuildingId = buildingid;
 		    ViewBag.UnitId = unitid;
