@@ -1,17 +1,114 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+	ViewBag.Title = "Leases";
 }
 
-<!DOCTYPE html>
+<h2>Leases For Company @ViewBag.Name</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>LeaseDetail</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+<form class="form-horizontal">
+	<fieldset>
+
+		<!-- Form Name -->
+		<legend>Lease Detail</legend>
+
+		<!-- Text input-->
+		<div class="control-group">
+			<label class="control-label" for="textinput">Start Date</label>
+			<div class="controls">
+				<input id="textinput" name="textinput" type="text" placeholder="" class="input-small">
+
+			</div>
+		</div>
+
+		<!-- Text input-->
+		<div class="control-group">
+			<label class="control-label" for="textinput">End Date</label>
+			<div class="controls">
+				<input id="textinput" name="textinput" type="text" placeholder="" class="input-small">
+
+			</div>
+		</div>
+
+		<!-- Multiple Checkboxes (inline) -->
+		<div class="control-group">
+			<label class="control-label" for="isMonthToMonth">Is Month To Month</label>
+			<div class="controls">
+				<label class="checkbox inline" for="isMonthToMonth-0">
+					<input type="checkbox" name="isMonthToMonth" id="isMonthToMonth-0" value="1">
+					1
+				</label>
+			</div>
+		</div>
+
+		<!-- Text input-->
+		<div class="control-group">
+			<label class="control-label" for="textinput">Payment Due Day</label>
+			<div class="controls">
+				<input id="textinput" name="textinput" type="text" placeholder="1" class="input-small">
+
+			</div>
+		</div>
+
+		<!-- Text input-->
+		<div class="control-group">
+			<label class="control-label" for="textinput">Tenant</label>
+			<div class="controls">
+				<input id="textinput" name="textinput" type="text" placeholder="tenant" class="input-xlarge">
+
+			</div>
+		</div>
+
+		<!-- Prepended text-->
+		<div class="control-group">
+			<label class="control-label" for="">Monthly Payment</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">$</span>
+					<input id="" name="" class="input-small" placeholder="" type="text">
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Prepended text-->
+		<div class="control-group">
+			<label class="control-label" for="prependedtext">Security Deposit</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">$</span>
+					<input id="prependedtext" name="prependedtext" class="input-small" placeholder="" type="text">
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Prepended text-->
+		<div class="control-group">
+			<label class="control-label" for="prependedtext">Pet Deposit</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">$</span>
+					<input id="prependedtext" name="prependedtext" class="input-small" placeholder="" type="text">
+				</div>
+
+			</div>
+		</div>
+
+	</fieldset>
+</form>
+
+
+@section Scripts {
+	<script type="text/javascript">
+		$(function () {
+			var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("leases", new { httproute = "", companyid = ViewBag.Id })', {});
+			viewModel.get(function () {
+				ko.applyBindings(viewModel);
+
+				$('.datepicker').datepicker({
+					format: "mm/dd/yyyy"
+				});
+
+			});
+		});
+	</script>
+}
