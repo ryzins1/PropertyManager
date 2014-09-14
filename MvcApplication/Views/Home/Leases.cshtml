@@ -2,7 +2,7 @@
     ViewBag.Title = "Leases";
 }
 
-<h2>Leases For Company @ViewBag.Name</h2>
+<h2>Leases For @ViewBag.Name</h2>
 
 @Html.Partial("_Toolbar")
 <table id="leases" class="table table-striped table-hover">
@@ -23,7 +23,7 @@
             <td><input type="checkbox" class="form-control input-sm" data-bind="checked: isMonthToMonth" /></td>
             <td><input type="text" class="form-control input-sm" data-bind="value: paymentDueDay"></td>
             <td>
-                <a data-bind="attr: { href: '@Url.Action("LeaseDetails", "Home")/' + id() }" class="btn btn-info btn-sm">Lease</a>
+                <a data-bind="attr: { href: '@Url.Action("LeaseDetails", "Home")/' + id() }" class="btn btn-info btn-sm">Details</a>
                 @Html.Partial("_DeleteButton")
             </td>
         </tr>
@@ -32,9 +32,21 @@
 
 @section Scripts {
     <script type="text/javascript">
-        $(function () {
-            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("leases", new { httproute = "", companyid = ViewBag.Id })', {});
-            viewModel.get(function () {
+        $(function() {
+            var url = "@Url.RouteUrl("leases", new {httproute = "", companyid = ViewBag.Id})";
+            var defaults = {};
+            @if (!string.IsNullOrEmpty(ViewBag.BuildingId))
+            {
+                @:url += "?buildingid=@ViewBag.BuildingId";
+                @:defaults.buildingId = "@ViewBag.BuildingId";
+            }
+            @if (!string.IsNullOrEmpty(ViewBag.UnitId))
+            {
+                @:url += "&unitid=@ViewBag.UnitId";
+                @:defaults.unitId = "@ViewBag.UnitId";
+            }
+            var viewModel = new propertyManager.ViewModel(url, defaults);
+            viewModel.get(function() {
                 ko.applyBindings(viewModel);
             });
         });

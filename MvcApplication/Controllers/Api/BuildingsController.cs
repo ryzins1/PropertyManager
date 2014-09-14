@@ -43,6 +43,8 @@ namespace MvcApplication.Controllers.Api
 			building.Id = ObjectId.GenerateNewId().ToString();
 		    building.CompanyId = companyid;
             building.Url = urlHelper.Link("building", new { id = building.Id });
+            building.UnitsUrl = urlHelper.Link("units", new { buildingid = building.Id });
+            building.LeasesUrl = urlHelper.Link("leases", new { companyid, buildingid = building.Id });
 
 			_repository.Buildings.Insert(building);
 			return Created(building.Url, building);

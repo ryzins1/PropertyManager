@@ -15,11 +15,11 @@
 	<tbody data-bind="foreach: items">
 
 		<tr class="form-group">
-			<td><input type="text" class="form-control input-sm" data-bind="value: name"></td>
-			<td><input type="text" class="form-control input-sm" data-bind="value: description"></td>
-			<td><a data-bind="attr: { href: '@Url.Action("Buildings", "Home")/' + id() }" class="btn btn-info btn-sm">Buildings</a></td>
-			<td><a data-bind="attr: { href: '@Url.Action("Leases", "Home")/' + id() }" class="btn btn-info btn-sm">Leases</a></td>
-		    <td>
+			<td class="col-md-6"><input type="text" class="form-control input-sm" data-bind="value: name"></td>
+			<td class="col-md-6"><input type="text" class="form-control input-sm" data-bind="value: description"></td>
+			<td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("Buildings", "Home")/' + id() }" class="btn btn-info btn-sm">Buildings</a></td>
+			<td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("Leases", "Home")/' + id() }" class="btn btn-info btn-sm">Leases</a></td>
+		    <td class="col-md-1">
 		        @Html.Partial("_DeleteButton")
 		    </td>
 		</tr>

@@ -27,6 +27,16 @@ namespace MvcApplication.Controllers.Api
 			return Ok(leases);
 	    }
 
+        [Route]
+        [HttpGet]
+		public IHttpActionResult GetWithQuery(string companyid, string buildingid, string unitid = "")
+        {
+            var leases = _repository.Leases.AsQueryable() .Where(x => x.CompanyId.Equals(companyid) && x.BuildingId.Equals(buildingid));
+            if (!string.IsNullOrEmpty(unitid))
+                leases = leases.Where(x => x.UnitId.Equals(unitid));
+		    return Ok(leases.ToList());
+		}
+
 		[Route("{id}", Name = "lease")]
 		public IHttpActionResult Get(string companyid, string id)
 		{
