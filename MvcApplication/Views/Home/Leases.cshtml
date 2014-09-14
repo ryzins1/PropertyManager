@@ -18,8 +18,8 @@
     <tbody data-bind="foreach: items">
         <tr class="form-group">
             <td><a href="">Unit</a></td>
-            <td><input type="text" class="form-control input-sm datepicker" data-bind="value: startDate"></td>
-            <td><input type="text" class="form-control input-sm datepicker" data-bind="value: endDate"></td>
+            <td><input type="text" class="form-control input-sm datepicker" data-bind="datepicker: startDate"></td>
+            <td><input type="text" class="form-control input-sm datepicker" data-bind="datepicker: endDate"></td>
             <td><input type="checkbox" class="form-control input-sm" data-bind="checked: isMonthToMonth" /></td>
             <td><input type="text" class="form-control input-sm" data-bind="value: paymentDueDay"></td>
             <td>
@@ -36,11 +36,6 @@
             var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("leases", new { httproute = "", companyid = ViewBag.Id })', {});
             viewModel.get(function () {
                 ko.applyBindings(viewModel);
-
-                $('.datepicker').datepicker({
-                    format: "mm/dd/yyyy"
-                });
-
             });
         });
     </script>
