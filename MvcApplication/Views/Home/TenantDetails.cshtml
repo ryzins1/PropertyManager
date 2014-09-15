@@ -1,0 +1,126 @@
+﻿@{
+	ViewBag.Title = "Tenant Details";
+}
+
+<h2>Tenant Details</h2>
+
+<button class="btn btn-success btn-sm" onclick="window.location = '@ViewBag.FromUrl'">Back</button>
+
+<p />
+
+<div>
+
+	<form data-bind="with: item">
+		<div class="row">
+			<div class="col-xs-2">
+				<label class="control-label" for="company">Company</label>
+			</div>
+			<div class="col-xs-4">
+				<input type="text" id="company" class="input-sm disabled" disabled data-bind="value: $parent.companyName">
+			</div>
+			<div class="col-xs-2">
+				<label class="control-label" for="building">Building</label>
+			</div>
+			<div class="col-xs-4">
+				<select id="building" class="form-control input-sm" data-bind="options: $parent.buildings, value: buildingId, optionsText: 'name', optionsValue: 'id'"></select>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-xs-2">
+				<label class="control-label" for="unit">Unit</label>
+			</div>
+			<div class="col-xs-4">
+				<select id="unit" class="form-control input-sm" data-bind="options: $parent.units, value: unitId, optionsText: 'number', optionsValue: 'id'"></select>
+			</div>
+			<div class="col-xs-2">
+				
+			</div>
+			<div class="col-xs-4">
+				
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-xs-2">
+				<label class="control-label" for="firstName">First Name</label>
+			</div>
+			<div class="col-xs-4">
+				<input type="text" id="firstName" class="input-sm" data-bind="value: firstName">
+			</div>
+			<div class="col-xs-2">
+				<label class="control-label" for="lastName">Last Name</label>
+			</div>
+			<div class="col-xs-4">
+				<input type="text" id="lastName" class="input-sm" data-bind="value: lastName">
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-xs-2">
+				<label class="control-label" for="homePhone">Home Phone</label>
+			</div>
+			<div class="col-xs-4">
+				<input type="text" id="homePhone" class="input-sm" data-bind="value: homePhone">
+			</div>
+			<div class="col-xs-2">
+				<label class="control-label" for="workPhone">Work Phone</label>
+			</div>
+			<div class="col-xs-4">
+				<input type="text" id="workPhone" class="input-sm" data-bind="value: workPhone">
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-xs-2">
+				<label class="control-label" for="cellPhone">Cell Phone</label>
+			</div>
+			<div class="col-xs-4">
+				<input type="text" id="cellPhone" class="input-sm" data-bind="value: cellPhone">
+			</div>
+			<div class="col-xs-2">
+				<label class="control-label" for="email">Email</label>
+			</div>
+			<div class="col-xs-4">
+				<input type="text" id="email" class="input-sm" data-bind="value: email">
+			</div>
+		</div>
+	</form>
+</div>
+
+
+@section Scripts {
+	<script type="text/javascript">
+        $(function () {
+            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("tenant", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})', {});
+            viewModel.get(function () {
+
+                viewModel.companyName = ko.observable("");
+                viewModel.buildings = ko.observableArray([]);
+                viewModel.units = ko.observableArray([]);
+
+                $.getJSON("/api/companies/" + viewModel.item.companyId(), function (company) {
+                    viewModel.companyName(company.name);
+                });
+
+                $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings", function (buildings) {
+                    ko.mapping.fromJS(buildings, {}, viewModel.buildings);
+
+                    $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings/" + viewModel.item.buildingId() + "/units", function (units) {
+                        ko.mapping.fromJS(units, {}, viewModel.units);
+
+                        ko.applyBindings(viewModel);
+
+                        viewModel.item.buildingId.subscribe(function(buildingId) {
+                            $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings/" + buildingId + "/units", function (newUnits) {
+                                ko.mapping.fromJS(newUnits, {}, viewModel.units);
+                            });
+                        });
+                    });
+
+                });
+
+            });
+        });
+	</script>
+}

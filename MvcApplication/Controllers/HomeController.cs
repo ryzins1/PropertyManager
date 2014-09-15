@@ -109,6 +109,20 @@ namespace MvcApplication.Controllers
 
 			return View();
 		}
+
+		public ActionResult TenantDetails(string id, string companyid)
+		{
+			var tenant = _repository.Tenants.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
+
+			if (tenant == null)
+				return View(); // TODO return an error page?
+
+			ViewBag.FromUrl = Request.UrlReferrer == null ? "/" : Request.UrlReferrer.PathAndQuery;
+			ViewBag.Id = id;
+			ViewBag.CompanyId = companyid;
+
+			return View();
+		}
 		
 		public ActionResult About()
         {
