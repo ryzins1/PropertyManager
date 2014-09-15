@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using MongoDB.Driver.Linq;
+using MvcApplication.Models;
 using MvcApplication.Services;
 
 namespace MvcApplication.Controllers
@@ -21,7 +22,7 @@ namespace MvcApplication.Controllers
 
         public ActionResult Tenants()
         {
-            return View();
+	        return View();
         }
 
 		public ActionResult Buildings(string id)
@@ -96,16 +97,23 @@ namespace MvcApplication.Controllers
 			return View();
 		}
 
-		public ActionResult LeaseDetails(string id, string companyid)
+		public ActionResult LeaseDetails(string id, string companyid, string tenantid = "")
 		{
-			var lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
-
+			var lease = new Lease();
+			if (!string.IsNullOrEmpty(id) && id != tenantid)
+			{
+				lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
+			}
+			else if (!string.IsNullOrEmpty(tenantid))
+			{
+				lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.TenantId.Equals(tenantid));
+			}
 			if (lease == null)
 				return View(); // TODO return an error page?
 
 		    ViewBag.FromUrl = Request.UrlReferrer == null ? "/" : Request.UrlReferrer.PathAndQuery;
-			ViewBag.Id = id;
-		    ViewBag.CompanyId = companyid;
+			ViewBag.Id = lease.Id;
+		    ViewBag.CompanyId = lease.CompanyId;
 
 			return View();
 		}
