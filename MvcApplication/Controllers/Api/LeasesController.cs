@@ -59,11 +59,27 @@ namespace MvcApplication.Controllers.Api
             lease.StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 		    lease.EndDate = lease.StartDate.AddYears(1).AddDays(-1);
 
-		    if (string.IsNullOrEmpty(lease.BuildingId))
-		    {
-		        var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.CompanyId.Equals(companyid));
-		        lease.BuildingId = building == null ? "" : building.Id;
-		    }
+            var buildings = _repository.Buildings.AsQueryable().Where(x => x.CompanyId.Equals(companyid));
+		    if (!string.IsNullOrEmpty(lease.BuildingId))
+		        buildings = buildings.Where(x => x.Id.Equals(lease.BuildingId));
+
+		    var building = buildings.FirstOrDefault();
+            if (building == null)
+                throw new Exception("You must create a Building for this Company before you can create a Lease");
+
+		    lease.BuildingId = building.Id;
+		    lease.BuildingName = building.Name;
+
+		    var units = _repository.Units.AsQueryable().Where(x => x.BuildingId.Equals(building.Id));
+		    if (!string.IsNullOrEmpty(lease.UnitId))
+		        units = units.Where(x => x.Id.Equals(lease.UnitId));
+
+		    var unit = units.FirstOrDefault();
+            if (unit == null)
+                throw new Exception("You must create a Unit for this Building before you can create a Lease");
+
+		    lease.UnitId = unit.Id;
+		    lease.UnitNumber = unit.Number;
 
 			_repository.Leases.Insert(lease);
 			return Created(lease.Url, lease);
@@ -72,6 +88,15 @@ namespace MvcApplication.Controllers.Api
 		[Route("{id}")]
 		public IHttpActionResult Put(string id, [FromBody]Lease lease)
 	    {
+            var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.Id.Equals(lease.CompanyId));
+            if (building == null)
+                throw new Exception("You must create a Building for this Company before you can create a Lease");
+		    lease.BuildingName = building.Name;
+		    var unit = _repository.Units.AsQueryable().FirstOrDefault(x => x.Id.Equals(lease.UnitId));
+            if (unit == null)
+                throw new Exception("You must create a Unit for this Building before you can create a Lease");
+		    lease.UnitNumber = unit.Number;
+
 			_repository.Leases.Save(lease);
 		    return Ok(lease);
 	    }
