@@ -18,6 +18,8 @@ namespace MvcApplication.Models
 	    public string BuildingId { get; set; }
 	    public string UnitId { get; set; }
 	    public string TenantId { get; set; }
+	    public string BuildingName { get; set; }
+	    public string UnitNumber { get; set; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 		public bool IsMonthToMonth { get; set; }
