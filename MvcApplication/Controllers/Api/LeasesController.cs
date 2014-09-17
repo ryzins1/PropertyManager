@@ -88,7 +88,7 @@ namespace MvcApplication.Controllers.Api
 		[Route("{id}")]
 		public IHttpActionResult Put(string id, [FromBody]Lease lease)
 	    {
-            var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.Id.Equals(lease.CompanyId));
+            var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.Id.Equals(lease.BuildingId));
             if (building == null)
                 throw new Exception("You must create a Building for this Company before you can create a Lease");
 		    lease.BuildingName = building.Name;
