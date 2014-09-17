@@ -134,6 +134,7 @@
     <Compile Include="Controllers\Api\BuildingsController.cs" />
     <Compile Include="Controllers\Api\CompaniesController.cs" />
     <Compile Include="Controllers\Api\LeasesController.cs" />
+    <Compile Include="Controllers\Api\MaintenanceRequestsController.cs" />
     <Compile Include="Controllers\Api\TenantsController.cs" />
     <Compile Include="Controllers\Api\UnitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Lease.cs" />
+    <Compile Include="Models\MaintenanceRequest.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Tenant.cs" />
     <Compile Include="Models\Unit.cs" />

@@ -55,5 +55,11 @@ namespace MvcApplication.Services
         {
             get { return _mongoDb.GetCollection<Unit>(typeof(Unit).Name); }
         }
+
+		public MongoCollection<MaintenanceRequest> MaintenanceRequests
+		{
+			get { return _mongoDb.GetCollection<MaintenanceRequest>(typeof(MaintenanceRequest).Name); }
+		}
+
     }
 }
