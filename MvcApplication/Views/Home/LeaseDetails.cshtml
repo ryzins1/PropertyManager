@@ -2,101 +2,132 @@
     ViewBag.Title = "Leases";
 }
 
-<h2>Lease Details</h2>
+<div id="leaseView">
 
-<button class="btn btn-success btn-sm" onclick="window.location = '@ViewBag.FromUrl'">Back</button>
+    <h2>Lease Details</h2>
 
-<p/>
+    <button class="btn btn-success btn-sm" onclick="window.location = '@ViewBag.FromUrl'">Back</button>
 
-<div>
+    <p />
 
-    <form data-bind="with: item">
-        <div class="row">
-            <div class="col-xs-2">
-                <label class="control-label" for="company">Company</label>
-            </div>
-            <div class="col-xs-4">
-                <input type="text" id="company" class="input-sm disabled" disabled data-bind="value: $parent.companyName">
-            </div>
-            <div class="col-xs-2">
-                <label class="control-label" for="building">Building</label>
-            </div>
-            <div class="col-xs-4">
-                <select id="building" class="form-control input-sm" data-bind="options: $parent.buildings, value: buildingId, optionsText: 'name', optionsValue: 'id'"></select>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="col-xs-2">
-                <label class="control-label" for="company">Unit</label>
-            </div>
-            <div class="col-xs-4">
-                <select id="unit" class="form-control input-sm" data-bind="options: $parent.units, value: unitId, optionsText: 'number', optionsValue: 'id'"></select>
-            </div>
-            <div class="col-xs-2">
-                <label class="control-label" for="ismonthtomonth">Is Month To Month</label>
-            </div>
-            <div class="col-xs-4">
-                <input type="checkbox" id="ismonthtomonth" class="checkbox" style="width: 40px; margin: 0" data-bind="checked: isMonthToMonth">
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="col-xs-2">
-                <label class="control-label" for="startdate">Start Date</label>
-            </div>
-            <div class="col-xs-4">
-                <input type="text" id="startdate" class="input-sm" data-bind="datepicker: startDate">
-            </div>
-            <div class="col-xs-2">
-                <label class="control-label" for="enddate">End Date</label>
-            </div>
-            <div class="col-xs-4">
-                <input type="text" id="enddate" class="input-sm" data-bind="datepicker: endDate">
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="col-xs-2">
-                <label class="control-label" for="paymentdueday">Payment Due Day</label>
-            </div>
-            <div class="col-xs-4">
-                <input type="number" min="1" max="28" step="1" id="paymentdueday" name="paymentdueday" class="input-sm numeric" data-bind="value: paymentDueDay">
-            </div>
-            <div class="col-xs-2">
-                <label class="control-label" for="monthlypayment">Monthly Payment</label>
-            </div>
-            <div class="col-xs-4">
-                <div class="input-group">
-                    <span class="input-group-addon">$</span>
-                    <input type="number" id="monthlypayment" class="input-sm numeric" data-bind="value: monthlyPayment">
+    <div>
+
+        <form data-bind="with: item">
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="control-label" for="company">Company</label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" id="company" class="input-sm disabled" disabled data-bind="value: $parent.companyName">
+                </div>
+                <div class="col-xs-2">
+                    <label class="control-label" for="building">Building</label>
+                </div>
+                <div class="col-xs-4">
+                    <select id="building" class="form-control input-sm" data-bind="options: $parent.buildings, value: buildingId, optionsText: 'name', optionsValue: 'id'"></select>
                 </div>
             </div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="col-xs-2">
-                <label class="control-label" for="securitydeposit">Security Deposit</label>
-            </div>
-            <div class="col-xs-4">
-				<div class="input-group">
-					<span class="input-group-addon">$</span>
-					<input type="number" id="securitydeposit" class="input-sm numeric" data-bind="value: securityDeposit">
-				</div>
-            </div>
-            <div class="col-xs-2">
-                <label class="control-label" for="petdeposit">Pet Deposit</label>
-            </div>
-            <div class="col-xs-4">
-                <div class="input-group">
-                    <span class="input-group-addon">$</span>
-                    <input type="number" id="petdeposit" class="input-sm numeric" data-bind="value: petDeposit">
+            <br />
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="control-label" for="company">Unit</label>
+                </div>
+                <div class="col-xs-4">
+                    <select id="unit" class="form-control input-sm" data-bind="options: $parent.units, value: unitId, optionsText: 'number', optionsValue: 'id'"></select>
+                </div>
+                <div class="col-xs-2">
+                    <label class="control-label" for="ismonthtomonth">Is Month To Month</label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="checkbox" id="ismonthtomonth" class="checkbox" style="width: 40px; margin: 0" data-bind="checked: isMonthToMonth">
                 </div>
             </div>
-        </div>
-    </form>
+            <br />
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="control-label" for="startdate">Start Date</label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" id="startdate" class="input-sm" data-bind="datepicker: startDate">
+                </div>
+                <div class="col-xs-2">
+                    <label class="control-label" for="enddate">End Date</label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="text" id="enddate" class="input-sm" data-bind="datepicker: endDate">
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="control-label" for="paymentdueday">Payment Due Day</label>
+                </div>
+                <div class="col-xs-4">
+                    <input type="number" min="1" max="28" step="1" id="paymentdueday" name="paymentdueday" class="input-sm numeric" data-bind="value: paymentDueDay">
+                </div>
+                <div class="col-xs-2">
+                    <label class="control-label" for="monthlypayment">Monthly Payment</label>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="number" id="monthlypayment" class="input-sm numeric" data-bind="value: monthlyPayment">
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-xs-2">
+                    <label class="control-label" for="securitydeposit">Security Deposit</label>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="number" id="securitydeposit" class="input-sm numeric" data-bind="value: securityDeposit">
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <label class="control-label" for="petdeposit">Pet Deposit</label>
+                </div>
+                <div class="col-xs-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="number" id="petdeposit" class="input-sm numeric" data-bind="value: petDeposit">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
 </div>
 
+<div id="tenantsView">
+
+    <h2>Tenants</h2>
+    @Html.Partial("_Toolbar")
+    <table id="tenants" class="table table-striped table-hover ">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: items">
+            <tr class="form-group">
+                <td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: firstName"></td>
+                <td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: lastName"></td>
+                <td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: homePhone"></td>
+                <td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("TenantDetails", "Home")/' + id() + '?companyid=' + companyId() }" class="btn btn-info btn-sm">Details</a></td>
+                <td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("Leases", "Home")/' + companyId() + '?tenantid=' + id() }" class="btn btn-info btn-sm">Leases</a></td>
+                <td class="col-md-1">
+                    @Html.Partial("_DeleteButton")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
 
 @section Scripts {
     <script type="text/javascript">
@@ -118,15 +149,29 @@
                     $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings/" + viewModel.item.buildingId() + "/units", function (units) {
                         ko.mapping.fromJS(units, {}, viewModel.units);
 
-                        ko.applyBindings(viewModel);
+                        ko.applyBindings(viewModel, document.getElementById("leaseView"));
 
-                        viewModel.item.buildingId.subscribe(function(buildingId) {
+                        viewModel.item.buildingId.subscribe(function (buildingId) {
                             $.getJSON("/api/companies/" + viewModel.item.companyId() + "/buildings/" + buildingId + "/units", function (newUnits) {
                                 ko.mapping.fromJS(newUnits, {}, viewModel.units);
                             });
                         });
                     });
 
+                });
+
+                var tenantsViewModel = new propertyManager.ViewModel(
+                    '@Url.RouteUrl("tenants", new {httproute = ""})' + '?companyid=' + viewModel.item.companyId() + '&leaseid=' + viewModel.item.id(),
+                    {
+                        "companyId": viewModel.item.companyId(),
+                        "buildingId": viewModel.item.buildingId(),
+                        "unitId": viewModel.item.unitId(),
+                        "leaseId": viewModel.item.id(),
+                        "firstName": "New Tenant"
+                    }
+                );
+                tenantsViewModel.get(function () {
+                    ko.applyBindings(tenantsViewModel, document.getElementById("tenantsView"));
                 });
 
             });
