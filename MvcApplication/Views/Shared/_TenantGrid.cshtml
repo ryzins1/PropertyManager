@@ -1,0 +1,22 @@
+﻿<table id="tenants" class="table table-striped table-hover ">
+	<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Phone</th>
+		</tr>
+	</thead>
+	<tbody data-bind="foreach: items">
+		<tr class="form-group">
+			<td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: firstName"></td>
+			<td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: lastName"></td>
+			
+			<td class="col-md-4"><input type="tel" class="form-control input-sm" data-bind='maskedInput: homePhone, mask: " (999) 999-9999"'></td>
+			<td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("TenantDetails", "Home")/' + id() + '?companyid=' + companyId() }" class="btn btn-info btn-sm">Details</a></td>
+            <td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("Leases", "Home")/' + companyId() + '?tenantid=' + id() }" class="btn btn-info btn-sm">Leases</a></td>
+		    <td class="col-md-1">
+		        @Html.Partial("_DeleteButton")
+		    </td>
+		</tr>
+	</tbody>
+</table>
