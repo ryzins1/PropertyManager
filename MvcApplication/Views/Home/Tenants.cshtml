@@ -18,7 +18,8 @@
 		<tr class="form-group">
 			<td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: firstName"></td>
 			<td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: lastName"></td>
-			<td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: homePhone"></td>
+			
+			<td class="col-md-4"><input type="tel" class="form-control input-sm" data-bind='maskedInput: homePhone, mask: " (999) 999-9999"'"></td>
 			<td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("TenantDetails", "Home")/' + id() + '?companyid=' + companyId() }" class="btn btn-info btn-sm">Details</a></td>
 			<td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("LeaseDetails", "Home")/' + id() + '?companyid=' + companyId() + '&tenantId=' + id() }" class="btn btn-info btn-sm">Lease</a></td>
 			<td class="col-md-1">
@@ -31,10 +32,25 @@
 @section Scripts {
 	<script>
 		$(function () {
+
+			ko.bindingHandlers.maskedInput = {
+				init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+					ko.bindingHandlers.value.init(element, valueAccessor, allBindings, viewModel, bindingContext);
+				},
+				update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+					ko.bindingHandlers.value.update(element, valueAccessor, allBindings, viewModel, bindingContext);
+					$(element).mask(allBindings.get('mask'));
+					valueAccessor()($(element).val());
+				}
+			};
+
+
 			var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("tenants", new {httproute = ""})', { "firstName": "New Tenant" });
 			viewModel.get(function() {
 				ko.applyBindings(viewModel);
 			});
 		});
+
+		
 	</script>
 }
