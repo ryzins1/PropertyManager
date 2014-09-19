@@ -28,13 +28,15 @@ namespace MvcApplication.Controllers.Api
 
         [Route]
         [HttpGet]
-		public IHttpActionResult GetWithQuery(string companyid, string buildingid = "", string unitid = "")
+		public IHttpActionResult GetWithQuery(string companyid, string buildingid = "", string unitid = "", string leaseid = "")
         {
             var tenants = _repository.Tenants.AsQueryable().Where(x => x.CompanyId.Equals(companyid));
             if (!string.IsNullOrEmpty(companyid))
                 tenants = tenants.Where(x => x.CompanyId.Equals(companyid));
             if (!string.IsNullOrEmpty(unitid))
                 tenants = tenants.Where(x => x.UnitId.Equals(unitid));
+            if (!string.IsNullOrEmpty(leaseid))
+                tenants = tenants.Where(x => x.LeaseId.Equals(leaseid));
 		    return Ok(tenants.ToList());
 		}
 
