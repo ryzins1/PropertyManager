@@ -44,7 +44,6 @@
 				}
 			};
 
-
 			var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("tenants", new {httproute = ""})', { "firstName": "New Tenant" });
 			viewModel.get(function() {
 				ko.applyBindings(viewModel);
