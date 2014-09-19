@@ -10,7 +10,7 @@
 
 <div>
 
-	<form data-bind="with: item">
+	<form id="tenantdetail" data-bind="with: item">
 		<div class="row">
 			<div class="col-xs-2">
 				<label class="control-label" for="company">Company</label>
@@ -82,7 +82,7 @@
 				<label class="control-label" for="email">Email</label>
 			</div>
 			<div class="col-xs-4">
-				<input type="email" class=" form-control input-sm" data-bind="value: email">
+				<input type="email" id="email" class="form-control input-sm" data-bind="value: email">
 			</div>
 		</div>
 	</form>
@@ -121,6 +121,6 @@
                 });
 
             });
-        });
+		});
 	</script>
 }
