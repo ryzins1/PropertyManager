@@ -92,18 +92,7 @@
 @section Scripts {
 	<script type="text/javascript">
 		$(function () {
-			ko.bindingHandlers.maskedInput = {
-				init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-					ko.bindingHandlers.value.init(element, valueAccessor, allBindings, viewModel, bindingContext);
-				},
-				update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-					ko.bindingHandlers.value.update(element, valueAccessor, allBindings, viewModel, bindingContext);
-					$(element).mask(allBindings.get('mask'));
-					valueAccessor()($(element).val());
-				}
-			};
-
-            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("tenant", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})', {});
+			var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("tenant", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})', {});
             viewModel.get(function () {
 
                 viewModel.companyName = ko.observable("");

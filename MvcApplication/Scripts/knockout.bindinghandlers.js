@@ -43,3 +43,14 @@
         }
     }
 };
+
+ko.bindingHandlers.maskedInput = {
+	init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+		ko.bindingHandlers.value.init(element, valueAccessor, allBindings, viewModel, bindingContext);
+	},
+	update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+		ko.bindingHandlers.value.update(element, valueAccessor, allBindings, viewModel, bindingContext);
+		$(element).mask(allBindings.get('mask'));
+		valueAccessor()($(element).val());
+	}
+};
