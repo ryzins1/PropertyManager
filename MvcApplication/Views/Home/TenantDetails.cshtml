@@ -61,13 +61,13 @@
 				<label class="control-label" for="homePhone">Home Phone</label>
 			</div>
 			<div class="col-xs-4">
-				<input type="text" id="homePhone" class="input-sm" data-bind="value: homePhone">
+				<input type="text" id="homePhone" class="input-sm" data-bind='maskedInput: homePhone, mask: " (999) 999-9999"'>
 			</div>
 			<div class="col-xs-2">
 				<label class="control-label" for="workPhone">Work Phone</label>
 			</div>
 			<div class="col-xs-4">
-				<input type="text" id="workPhone" class="input-sm" data-bind="value: workPhone">
+				<input type="text" id="workPhone" class="input-sm" data-bind='maskedInput: workPhone, mask: " (999) 999-9999"'>
 			</div>
 		</div>
 		<br />
@@ -76,13 +76,13 @@
 				<label class="control-label" for="cellPhone">Cell Phone</label>
 			</div>
 			<div class="col-xs-4">
-				<input type="text" id="cellPhone" class="input-sm" data-bind="value: cellPhone">
+				<input type="text" id="cellPhone" class="input-sm" data-bind='maskedInput: cellPhone, mask: " (999) 999-9999"'>
 			</div>
 			<div class="col-xs-2">
 				<label class="control-label" for="email">Email</label>
 			</div>
 			<div class="col-xs-4">
-				<input type="text" id="email" class="input-sm" data-bind="value: email">
+				<input type="email" class=" form-control input-sm" data-bind="value: email">
 			</div>
 		</div>
 	</form>
@@ -91,7 +91,18 @@
 
 @section Scripts {
 	<script type="text/javascript">
-        $(function () {
+		$(function () {
+			ko.bindingHandlers.maskedInput = {
+				init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+					ko.bindingHandlers.value.init(element, valueAccessor, allBindings, viewModel, bindingContext);
+				},
+				update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+					ko.bindingHandlers.value.update(element, valueAccessor, allBindings, viewModel, bindingContext);
+					$(element).mask(allBindings.get('mask'));
+					valueAccessor()($(element).val());
+				}
+			};
+
             var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("tenant", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})', {});
             viewModel.get(function () {
 
