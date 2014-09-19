@@ -117,7 +117,7 @@
             <tr class="form-group">
                 <td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: firstName"></td>
                 <td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: lastName"></td>
-                <td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: homePhone"></td>
+                <td class="col-md-4"><input type="text" class="form-control input-sm" data-bind='maskedInput: homePhone, mask: " (999) 999-9999"'></td>
                 <td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("TenantDetails", "Home")/' + id() + '?companyid=' + companyId() }" class="btn btn-info btn-sm">Details</a></td>
                 <td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("Leases", "Home")/' + companyId() + '?tenantid=' + id() }" class="btn btn-info btn-sm">Leases</a></td>
                 <td class="col-md-1">
