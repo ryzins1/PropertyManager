@@ -86,5 +86,3 @@ namespace MvcApplication.Controllers.Api
 	    }
 	}
 }
-	}
-}
