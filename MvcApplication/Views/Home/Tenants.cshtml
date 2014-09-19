@@ -21,8 +21,8 @@
 			
 			<td class="col-md-4"><input type="tel" class="form-control input-sm" data-bind='maskedInput: homePhone, mask: " (999) 999-9999"'"></td>
 			<td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("TenantDetails", "Home")/' + id() + '?companyid=' + companyId() }" class="btn btn-info btn-sm">Details</a></td>
-			<td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("LeaseDetails", "Home")/' + id() + '?companyid=' + companyId() + '&tenantId=' + id() }" class="btn btn-info btn-sm">Lease</a></td>
-			<td class="col-md-1">
+            <td class="col-md-1"><a data-bind="attr: { href: '@Url.Action("Leases", "Home")/' + companyId() + '?tenantid=' + id() }" class="btn btn-info btn-sm">Leases</a></td>
+		<td class="col-md-1">
 		        @Html.Partial("_DeleteButton")
 		    </td>
 		</tr>
