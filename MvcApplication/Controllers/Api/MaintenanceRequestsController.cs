@@ -23,7 +23,7 @@ namespace MvcApplication.Controllers.Api
 	    [Route(Name = "maintenancerequests")]
 		public IHttpActionResult Get(string companyid, string leaseid)
 	    {
-	        var request = _repository.MaintenanceRequests.AsQueryable().Where(m => m.LeaseId.Equals(leaseid)).ToList();
+	        var request = _repository.MaintenanceRequests.AsQueryable().Where(x => x.LeaseId.Equals(leaseid)).OrderByDescending(x => x.MaintenanceDate).ToList();
 			return Ok(request);
 	    }
 

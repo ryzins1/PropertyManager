@@ -38,6 +38,7 @@ namespace MvcApplication.Controllers.Api
             {
                 leases = leases.Where(x => x.TenantIds.Contains(tenantid));
             }
+            leases = leases.OrderByDescending(x => x.StartDate);
 		    return Ok(leases.ToList());
 		}
 

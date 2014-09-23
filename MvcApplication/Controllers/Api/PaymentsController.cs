@@ -23,7 +23,7 @@ namespace MvcApplication.Controllers.Api
 	    [Route(Name = "payments")]
 		public IHttpActionResult Get(string companyid, string leaseid)
 	    {
-	        var payments = _repository.Payments.AsQueryable().Where(p => p.LeaseId.Equals(leaseid)).ToList();
+	        var payments = _repository.Payments.AsQueryable().Where(x => x.LeaseId.Equals(leaseid)).OrderByDescending(x => x.PaymentDate).ToList();
 			return Ok(payments);
 	    }
 
