@@ -86,9 +86,11 @@ namespace MvcApplication.Controllers.Api
 		    foreach (var tenantId in lease.TenantIds)
 		    {
 		        var tenant = _repository.Tenants.AsQueryable().FirstOrDefault(t => t.Id.Equals(tenantId));
-                if (tenant != null)
+		        if (tenant != null)
+		        {
                     tenant.LeaseIds.Add(lease.Id);
-		        _repository.Tenants.Save(tenant);
+		            _repository.Tenants.Save(tenant);
+		        }
 		    }
 
 			_repository.Leases.Insert(lease);
