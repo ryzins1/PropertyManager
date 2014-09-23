@@ -117,15 +117,15 @@
     		<tr>
     			<th>Date</th>
     			<th>Check Number</th>
-    			<th>Amount</th>
-    			<th>IsLate</th>
+				<th style ="padding-left: 45px;">Amount</th>
+    			<th style="padding-left: 50px;">IsLate</th>
     		</tr>
     	</thead>
     	<tbody data-bind="foreach: items">
     		<tr class="form-group">
-    			<td class="col-md-4"><input type="text" class="form-control input-sm datepicker" data-bind="datepicker: paymentDate"></td>
-    			<td class="col-md-4"><input type="text" class="form-control input-sm" data-bind="value: checkNumber"></td>
-    			<td class="col-md-4"><input type="text" class="form-control input-sm numeric" data-bind="value: amount"></td>
+    			<td class="col-md-2"><input type="text" class="form-control input-sm datepicker" data-bind="datepicker: paymentDate"></td>
+    			<td class="col-md-2"><input type="text" class="form-control input-sm" data-bind="value: checkNumber"></td>
+    			<td class="col-md-3"><div class="input-group"><span class="input-group-addon">$</span><input type="text" class="form-control input-sm numeric" data-bind="value: amount"></div></td>
 		        <td><input type="checkbox" class="checkbox" data-bind="checked: isLate" style="width: 40px; margin-left: 50px" /></td>
     		    <td class="col-md-1">
     		        @Html.Partial("_DeleteButton")
