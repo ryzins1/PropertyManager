@@ -111,7 +111,6 @@ namespace MvcApplication.Controllers
 			if (lease == null)
 				return View(); // TODO return an error page?
 
-		    ViewBag.FromUrl = Request.UrlReferrer == null ? "/" : Request.UrlReferrer.PathAndQuery;
 			ViewBag.Id = lease.Id;
 		    ViewBag.CompanyId = lease.CompanyId;
 
@@ -125,7 +124,6 @@ namespace MvcApplication.Controllers
 			if (tenant == null)
 				return View(); // TODO return an error page?
 
-			ViewBag.FromUrl = Request.UrlReferrer == null ? "/" : Request.UrlReferrer.PathAndQuery;
 			ViewBag.Id = id;
 			ViewBag.CompanyId = companyid;
 
