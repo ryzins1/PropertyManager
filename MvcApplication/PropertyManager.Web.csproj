@@ -135,6 +135,7 @@
     <Compile Include="Controllers\Api\CompaniesController.cs" />
     <Compile Include="Controllers\Api\LeasesController.cs" />
     <Compile Include="Controllers\Api\MaintenanceRequestsController.cs" />
+    <Compile Include="Controllers\Api\PaymentsController.cs" />
     <Compile Include="Controllers\Api\TenantsController.cs" />
     <Compile Include="Controllers\Api\UnitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
