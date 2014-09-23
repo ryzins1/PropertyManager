@@ -48,6 +48,11 @@ namespace MvcApplication.Controllers.Api
 		    var lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.CompanyId.Equals(companyid) && x.Id.Equals(id));
 		    if (lease == null)
 		        return NotFound();
+		    foreach (var damage in _repository.Damages.AsQueryable().Where(x => x.LeaseId.Equals(lease.Id)))
+		    {
+		        lease.TotalDamages += damage.Amount;
+		    }
+		    lease.DepositLessDamages = lease.SecurityDeposit - lease.TotalDamages;
 		    return Ok(lease);
 		}
 

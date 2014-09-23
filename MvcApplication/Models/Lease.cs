@@ -28,6 +28,8 @@ namespace MvcApplication.Models
 		public Decimal MonthlyPayment { get; set; }
 		public Decimal SecurityDeposit { get; set; }
 		public Decimal PetDeposit { get; set; }
+	    public decimal TotalDamages { get; set; }
+        public Decimal DepositLessDamages { get; set; }
 		public ICollection<Payment> Payments { get; set; }
 		public ICollection<Complaint> Complaints { get; set; }
 		public ICollection<Damage> Damages { get; set; }
