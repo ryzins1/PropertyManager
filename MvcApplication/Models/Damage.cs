@@ -2,11 +2,12 @@
 
 namespace MvcApplication.Models
 {
-	public class Damage
+	public class Damage : Entity
 	{
-		public Guid Id { get; set; }
+	    public string Url { get; set; }
+	    public string LeaseId { get; set; }
 		public DateTime DamageDate { get; set; }
-		public string DamageRemarks { get; set; }
+		public string Remarks { get; set; }
 		public decimal Amount { get; set; }
 	}
 }

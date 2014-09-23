@@ -2,11 +2,12 @@
 
 namespace MvcApplication.Models
 {
-	public class Complaint
+	public class Complaint : Entity
 	{
-		public Guid Id { get; set; }
+	    public string Url { get; set; }
+	    public string LeaseId { get; set; }
 		public DateTime ComplaintDate { get; set; }
 		public string ReportedBy { get; set; }
-		public string ComplaintRemarks { get; set; }
+		public string Remarks { get; set; }
 	}
 }

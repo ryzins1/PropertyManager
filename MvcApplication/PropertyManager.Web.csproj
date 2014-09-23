@@ -133,6 +133,8 @@
   <ItemGroup>
     <Compile Include="Controllers\Api\BuildingsController.cs" />
     <Compile Include="Controllers\Api\CompaniesController.cs" />
+    <Compile Include="Controllers\Api\ComplaintsController.cs" />
+    <Compile Include="Controllers\Api\DamagesController.cs" />
     <Compile Include="Controllers\Api\LeasesController.cs" />
     <Compile Include="Controllers\Api\MaintenanceRequestsController.cs" />
     <Compile Include="Controllers\Api\PaymentsController.cs" />
