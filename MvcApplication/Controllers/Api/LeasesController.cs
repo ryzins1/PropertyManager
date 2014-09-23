@@ -35,7 +35,9 @@ namespace MvcApplication.Controllers.Api
             if (!string.IsNullOrEmpty(unitid))
                 leases = leases.Where(x => x.UnitId.Equals(unitid));
             if (!string.IsNullOrEmpty(tenantid))
-                leases = leases.Where(x => x.TenantId.Equals(tenantid));
+            {
+                leases = leases.Where(x => x.TenantIds.Contains(tenantid));
+            }
 		    return Ok(leases.ToList());
 		}
 
@@ -80,6 +82,14 @@ namespace MvcApplication.Controllers.Api
 
 		    lease.UnitId = unit.Id;
 		    lease.UnitNumber = unit.Number;
+
+		    foreach (var tenantId in lease.TenantIds)
+		    {
+		        var tenant = _repository.Tenants.AsQueryable().FirstOrDefault(t => t.Id.Equals(tenantId));
+                if (tenant != null)
+                    tenant.LeaseIds.Add(lease.Id);
+		        _repository.Tenants.Save(tenant);
+		    }
 
 			_repository.Leases.Insert(lease);
 			return Created(lease.Url, lease);

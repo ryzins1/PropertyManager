@@ -112,7 +112,8 @@
 @section Scripts {
     <script type="text/javascript">
         $(function () {
-            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("lease", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})', {});
+            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("lease", new {httproute = "", companyid = ViewBag.CompanyId, id = ViewBag.Id})',
+                {});
             viewModel.get(function () {
 
                 viewModel.companyName = ko.observable("");
@@ -146,7 +147,7 @@
                         "companyId": viewModel.item.companyId(),
                         "buildingId": viewModel.item.buildingId(),
                         "unitId": viewModel.item.unitId(),
-                        "leaseId": viewModel.item.id(),
+                        "leaseIds": [ viewModel.item.id() ],
                         "firstName": "New Tenant"
                     }
                 );

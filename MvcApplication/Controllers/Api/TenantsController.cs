@@ -36,7 +36,7 @@ namespace MvcApplication.Controllers.Api
             if (!string.IsNullOrEmpty(unitid))
                 tenants = tenants.Where(x => x.UnitId.Equals(unitid));
             if (!string.IsNullOrEmpty(leaseid))
-                tenants = tenants.Where(x => x.LeaseId.Equals(leaseid));
+                tenants = tenants.Where(x => x.LeaseIds.Contains(leaseid));
 		    return Ok(tenants.ToList());
 		}
 
@@ -67,6 +67,13 @@ namespace MvcApplication.Controllers.Api
     		        var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.CompanyId.Equals(company.Id));
     		        tenant.BuildingId = building == null ? "" : building.Id;
     		    }
+		    }
+		    foreach (var leaseId in tenant.LeaseIds)
+		    {
+		        var lease = _repository.Leases.AsQueryable().FirstOrDefault(l => l.Id.Equals(leaseId));
+                if (lease != null)
+                    lease.TenantIds.Add(tenant.Id);
+		        _repository.Leases.Save(lease);
 		    }
 
 			_repository.Tenants.Insert(tenant);

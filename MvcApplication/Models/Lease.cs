@@ -8,6 +8,7 @@ namespace MvcApplication.Models
 	{
 		public Lease()
 		{
+            TenantIds = new Collection<string>();
 			PaymentDueDay = 1;
 			Payments = new Collection<Payment>();
 			Complaints = new Collection<Complaint>();
@@ -17,7 +18,7 @@ namespace MvcApplication.Models
 	    public string CompanyId { get; set; }
 	    public string BuildingId { get; set; }
 	    public string UnitId { get; set; }
-	    public string TenantId { get; set; }
+	    public ICollection<string> TenantIds { get; set; }
 	    public string BuildingName { get; set; }
 	    public string UnitNumber { get; set; }
 		public DateTime StartDate { get; set; }

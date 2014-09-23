@@ -106,7 +106,7 @@ namespace MvcApplication.Controllers
 			}
 			else if (!string.IsNullOrEmpty(tenantid))
 			{
-				lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.TenantId.Equals(tenantid));
+				lease = _repository.Leases.AsQueryable().FirstOrDefault(x => x.TenantIds.Contains(tenantid));
 			}
 			if (lease == null)
 				return View(); // TODO return an error page?
