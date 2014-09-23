@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using MongoDB.Bson;
@@ -9,7 +10,7 @@ using MvcApplication.Services;
 
 namespace MvcApplication.Controllers.Api
 {
-	[RoutePrefix("api/maintenancerequests")]
+	[RoutePrefix("api/companies/{companyid}/leases/{leaseid}/maintenancerequests")]
 	public class MaintenanceRequestsController : ApiController
 	{
 		private readonly Repository _repository;
@@ -20,59 +21,36 @@ namespace MvcApplication.Controllers.Api
 	    }
 
 	    [Route(Name = "maintenancerequests")]
-		public IHttpActionResult Get()
+		public IHttpActionResult Get(string companyid, string leaseid)
 	    {
-	        var maintenanceRequests = _repository.MaintenanceRequests.AsQueryable().ToList();
-			return Ok(maintenanceRequests);
+	        var request = _repository.MaintenanceRequests.AsQueryable().Where(m => m.LeaseId.Equals(leaseid)).ToList();
+			return Ok(request);
 	    }
 
-        [Route]
-        [HttpGet]
-		public IHttpActionResult GetWithQuery(string companyid, string buildingid = "", string unitid = "", string tenantid = "")
-        {
-            var maintenanceRequests = _repository.MaintenanceRequests.AsQueryable().Where(x => x.CompanyId.Equals(companyid) && x.BuildingId.Equals(buildingid));
-            if (!string.IsNullOrEmpty(unitid))
-                maintenanceRequests = maintenanceRequests.Where(x => x.UnitId.Equals(unitid));
-            if (!string.IsNullOrEmpty(tenantid))
-                maintenanceRequests = maintenanceRequests.Where(x => x.TenantId.Equals(tenantid));
-		    return Ok(maintenanceRequests.ToList());
-		}
-
 		[Route("{id}", Name = "maintenancerequest")]
-		public IHttpActionResult Get(string id)
+		public IHttpActionResult Get(string companyid, string leaseid, string id)
 		{
-			var maintenanceRequest = _repository.MaintenanceRequests.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
-		    if (maintenanceRequest == null)
+		    var request = _repository.MaintenanceRequests.AsQueryable().FirstOrDefault(x => x.LeaseId.Equals(leaseid) && x.Id.Equals(id));
+		    if (request == null)
 		        return NotFound();
-		    return Ok(maintenanceRequest);
+		    return Ok(request);
 		}
 
 		[Route]
-		public IHttpActionResult Post([FromBody]MaintenanceRequest maintenanceRequest)
+		public IHttpActionResult Post(string companyid, string leaseid, [FromBody]MaintenanceRequest maintenanceRequest)
 		{
 			var urlHelper = new UrlHelper(Request);
 
 			maintenanceRequest.Id = ObjectId.GenerateNewId().ToString();
-            maintenanceRequest.Url = urlHelper.Link("maintenanceRequest", new { id = maintenanceRequest.Id });
-
-		    if (string.IsNullOrEmpty(maintenanceRequest.CompanyId))
-		    {
-		        var company = _repository.Companies.AsQueryable().FirstOrDefault();
-		        maintenanceRequest.CompanyId = company == null ? "" : company.Id;
-
-    		    if (string.IsNullOrEmpty(maintenanceRequest.BuildingId))
-    		    {
-    		        var building = _repository.Buildings.AsQueryable().FirstOrDefault(x => x.CompanyId.Equals(company.Id));
-    		        maintenanceRequest.BuildingId = building == null ? "" : building.Id;
-    		    }
-		    }
+            maintenanceRequest.Url = urlHelper.Link("maintenancerequest", new { companyid, leaseid,  id = maintenanceRequest.Id });
+		    maintenanceRequest.MaintenanceDate = DateTime.Now;
 
 			_repository.MaintenanceRequests.Insert(maintenanceRequest);
 			return Created(maintenanceRequest.Url, maintenanceRequest);
 		}
 
 		[Route("{id}")]
-		public IHttpActionResult Put(string id, [FromBody]MaintenanceRequest maintenanceRequest)
+		public IHttpActionResult Put(string id, string leaseid, [FromBody]MaintenanceRequest maintenanceRequest)
 	    {
 			_repository.MaintenanceRequests.Save(maintenanceRequest);
 		    return Ok(maintenanceRequest);
