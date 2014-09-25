@@ -25,6 +25,12 @@
 				viewModel.get(function () {
 					ko.applyBindings(viewModel);
 				});
+
+				$("#search").on("keydown", function (event) {
+				    if (event.keyCode == 13) {
+				        viewModel.search($("#search").val());
+				    }
+			    });
 			});
 		</script>
 	}
