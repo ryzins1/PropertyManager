@@ -9,16 +9,42 @@
 		<tr></tr>
 	</thead>
 	<tbody>
-
 		<tr class="form-group">
-			<td class="col-md-3"><button class="btn btn-info btn-sm">Late Rent</button></td>
-			<td class="col-md-3"><button class="btn btn-info btn-sm">Vacant</button></td>
-			<td class="col-md-3"><button class="btn btn-info btn-sm">Maintenance Requests</button></td>
-			<td class="col-md-3"><button class="btn btn-info btn-sm">Damages</button></td>
-			<td class="col-md-3"><button class="btn btn-info btn-sm">Expiring Leases</button></td>
+			<td class="col-md-3">
+				<button class="btn btn-info btn-sm" style="width: 150px;">Late Rent</button>
+				<button class="btn btn-info btn-sm" style="width: 150px;">Vacant</button>
+				<button class="btn btn-info btn-sm" style="width: 150px;" data-toggle="modal" data-target="#dates">Maintenance Requests</button>
+				<button class="btn btn-info btn-sm" style="width: 150px;" data-toggle="modal" data-target="#dates">Damages</button>
+				<button class="btn btn-info btn-sm" style="width: 150px;">Expiring Leases</button>
+			</td>
 		</tr>
 	</tbody>
 </table>
+
+<div class="modal fade" id="dates">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">Choose From/To Dates</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-control">
+					<div class="col-xs-4">
+						<input type="text" class="form-control input-sm datepicker" data-bind="datepicker: fromdate" placeholder="From">
+					</div>
+					<div class="col-xs-4">
+						<input type="text" class="form-control input-sm datepicker" data-bind="datepicker: todate" placeholder="To">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 @section Scripts {
 	<script>
