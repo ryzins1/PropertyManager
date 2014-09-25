@@ -3,7 +3,7 @@
 }
 
 <h2>Tenants</h2>
-Search <input type="text" id="search"/> <input type="button" value="Search"/>
+Search <input type="text" id="search"/> <input type="button" value="Search" data-bind="click: function() { search($('#search').val()) }"/>
 <br/>
 <br/>
 @Html.Partial("_Toolbar")

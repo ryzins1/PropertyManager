@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using MongoDB.Bson;
@@ -25,7 +26,8 @@ namespace MvcApplication.Controllers.Api
 	        var tenantsQuery = _repository.Tenants.AsQueryable();
 	        if (!string.IsNullOrEmpty(query))
 	        {
-	            tenantsQuery = tenantsQuery.Where(x => x.FirstName.Contains(query) || x.LastName.Contains(query));
+	            query = query.ToLower();
+	            tenantsQuery = tenantsQuery.Where(x => x.FirstName.ToLower().Contains(query) || x.LastName.ToLower().Contains(query));
 	        }
 			return Ok(tenantsQuery.ToList());
 	    }

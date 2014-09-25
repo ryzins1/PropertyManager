@@ -25,6 +25,16 @@ propertyManager.ViewModel = function (apiUrl, newObjectDefaults) {
 		});
 	};
 
+    that.search = function (query) {
+        that.items.removeAll();
+        $.getJSON(apiUrl + "?query=" + query, function (items) {
+	        ko.mapping.fromJS(items, {}, that.items);
+            ko.utils.arrayForEach(that.items(), function(item) {
+                ko.watch(item, function() { that.update(item); });
+            });
+		});
+	};
+
 	that.add = function() {
 		$.ajax({
 			url: apiUrl,
