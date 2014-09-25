@@ -1,0 +1,39 @@
+﻿@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Reports</h2>
+
+<table class="table table-striped table-hover ">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>City</th>
+			<th>State</th>
+			<th>Zip</th>
+			<th>Units</th>
+		</tr>
+	</thead>
+	<tbody data-bind="">
+
+		<tr class="form-group">
+			<td class="col-md-3"><input type="text" class="form-control input-sm" data-bind=""></td>
+			<td class="col-md-3"><input type="text" class="form-control input-sm" data-bind=""></td>
+			<td class="col-md-2"><input type="text" class="form-control input-sm" data-bind=""></td>
+			<td class="col-md-1"><input type="text" class="form-control input-sm" data-bind=""></td>
+			<td class="col-md-2"><input type="text" class="form-control input-sm" data-bind=""></td>
+		</tr>
+	</tbody>
+</table>
+
+@section Scripts {
+	<script>
+        @*$(function () {
+            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("buildings", new { httproute = "", companyid = ViewBag.Id })', { "name": "New Building", "state": "MN" });
+            viewModel.get(function () {
+                ko.applyBindings(viewModel);
+            });
+        });*@
+	</script>
+}

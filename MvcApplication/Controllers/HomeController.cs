@@ -20,6 +20,11 @@ namespace MvcApplication.Controllers
             return View();
         }
 
+		public ActionResult Reports()
+		{
+			return View();
+		}
+
         public ActionResult Tenants()
         {
 	        return View();

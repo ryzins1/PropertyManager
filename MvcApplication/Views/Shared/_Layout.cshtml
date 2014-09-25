@@ -30,6 +30,7 @@
 				<ul class="nav navbar-nav">
 					<li class="@(page == "" ? "active" : "")"><a href="@Url.Action("Companies", "Home")">Companies</a></li>
 					<li class="@(page.Equals("tenants", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"><a href="@Url.Action("Tenants", "Home")">Tenants</a></li>
+					<li class="@(page.Equals("reports", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"><a href="@Url.Action("Reports", "Home")">Reports</a></li>
 					<li class="@(page.Equals("about", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"><a href="@Url.Action("About", "Home")">About</a></li>
 				</ul>
 				@*<form class="navbar-form navbar-left">
