@@ -20,10 +20,14 @@ namespace MvcApplication.Controllers.Api
 	    }
 
 	    [Route(Name = "tenants")]
-		public IHttpActionResult Get()
+		public IHttpActionResult Get(string query = "")
 	    {
-	        var tenants = _repository.Tenants.AsQueryable().ToList();
-			return Ok(tenants);
+	        var tenantsQuery = _repository.Tenants.AsQueryable();
+	        if (!string.IsNullOrEmpty(query))
+	        {
+	            tenantsQuery = tenantsQuery.Where(x => x.FirstName.Contains(query) || x.LastName.Contains(query));
+	        }
+			return Ok(tenantsQuery.ToList());
 	    }
 
         [Route]
@@ -41,7 +45,8 @@ namespace MvcApplication.Controllers.Api
 		}
 
 		[Route("{id}", Name = "tenant")]
-		public IHttpActionResult Get(string id)
+        [HttpGet]
+		public IHttpActionResult GetOne(string id)
 		{
 		    var tenant = _repository.Tenants.AsQueryable().FirstOrDefault(x => x.Id.Equals(id));
 		    if (tenant == null)
