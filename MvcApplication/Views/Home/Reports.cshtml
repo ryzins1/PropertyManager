@@ -13,30 +13,56 @@
 			<td class="col-md-3">
 				<button class="btn btn-info btn-sm" style="width: 150px;">Late Rent</button>
 				<button class="btn btn-info btn-sm" style="width: 150px;">Vacant</button>
-				<button class="btn btn-info btn-sm" style="width: 150px;" data-toggle="modal" data-target="#dates">Maintenance Requests</button>
-				<button class="btn btn-info btn-sm" style="width: 150px;" data-toggle="modal" data-target="#dates">Damages</button>
+				<button class="btn btn-info btn-sm" style="width: 150px;" data-toggle="modal" data-target="#maint">Maintenance Requests</button>
+				<button class="btn btn-info btn-sm" style="width: 150px;" data-toggle="modal" data-target="#damages">Damages</button>
 				<button class="btn btn-info btn-sm" style="width: 150px;">Expiring Leases</button>
 			</td>
 		</tr>
 	</tbody>
 </table>
 
-<div class="modal fade" id="dates">
+<div class="modal fade" id="maint" style="z-index: 1050;">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title">Choose From/To Dates</h4>
+				<h4 class="modal-title">Choose Maintenance From/To Dates</h4>
+			</div>
+			<form class="maint">
+				<div class="modal-body">
+
+					<div class="col-xs-4">
+						<input type="text" class="form-control input-sm datepicker" id="startdate" placeholder="From">
+					</div>
+					<div class="col-xs-4">
+						<input type="text" class="form-control input-sm datepicker" id="enddate" placeholder="To">
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="damages" style="z-index: 1050;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">Choose Damages From/To Dates</h4>
 			</div>
 			<div class="modal-body">
-				<div class="form-control">
-					<div class="col-xs-4">
-						<input type="text" class="form-control input-sm datepicker" data-bind="datepicker: fromdate" placeholder="From">
-					</div>
-					<div class="col-xs-4">
-						<input type="text" class="form-control input-sm datepicker" data-bind="datepicker: todate" placeholder="To">
-					</div>
+
+				<div class="col-xs-4">
+					<input type="text" class="form-control input-sm datepicker" id="startdate" placeholder="From">
 				</div>
+				<div class="col-xs-4">
+					<input type="text" class="form-control input-sm datepicker" id="enddate" placeholder="To">
+				</div>
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -45,14 +71,37 @@
 		</div>
 	</div>
 </div>
+<style>
+	/* datepicker z-index fix*/
+	.datepicker {
+		z-index: 2000 !important;
+	}
+
+	.datepicker.dropdown-menu {
+		z-index: 2000 !important;
+	}
+</style>
 
 @section Scripts {
 	<script>
+		$(document).ready(function() {
+			$(".datepicker").datepicker(
+			{
+				format: 'mm/dd/yyyy',
+				autoclose: true
+			});
+		});
 		@*$(function () {
-            var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("buildings", new { httproute = "", companyid = ViewBag.Id })', { "name": "New Building", "state": "MN" });
-            viewModel.get(function () {
-                ko.applyBindings(viewModel);
-            });
-        });*@
+			var viewModel = new propertyManager.ViewModel('@Url.RouteUrl("tenants", new {httproute = ""})', { "firstName": "New Tenant" });
+			viewModel.get(function () {
+				ko.applyBindings(viewModel);
+			});
+
+			$("#search").on("keydown", function (event) {
+				if (event.keyCode == 13) {
+					viewModel.search($("#search").val());
+				}
+			});
+		});*@
 	</script>
 }
