@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using MongoDB.Bson;
@@ -27,7 +26,14 @@ namespace MvcApplication.Controllers.Api
 	        if (!string.IsNullOrEmpty(query))
 	        {
 	            query = query.ToLower();
-	            tenantsQuery = tenantsQuery.Where(x => x.FirstName.ToLower().Contains(query) || x.LastName.ToLower().Contains(query));
+	            var querySplit = query.Split(' ');
+                if (querySplit.Count() > 1)
+	                tenantsQuery = tenantsQuery.Where(x => (
+                        x.FirstName.ToLower().Contains(querySplit[0]) && x.LastName.ToLower().Contains(querySplit[1]) ||
+                        x.FirstName.ToLower().Contains(querySplit[1]) && x.LastName.ToLower().Contains(querySplit[0])
+                        ));
+                else
+	                tenantsQuery = tenantsQuery.Where(x => x.FirstName.ToLower().Contains(query) || x.LastName.ToLower().Contains(query));
 	        }
 			return Ok(tenantsQuery.ToList());
 	    }
